@@ -1,0 +1,896 @@
+{
+    "label": {
+        "id": 554,
+        "name": "Spirit Carp",
+        "icon": "https://act-webstatic.hoyoverse.com/map_manage/20231227/344e5e9b83c8296ed3a1f4bd7db02d9f_245880752353839355.png",
+        "parent_id": 4,
+        "depth": 2,
+        "node_type": 2,
+        "jump_type": 0,
+        "jump_target_id": 0,
+        "wiki_jump_url": "",
+        "display_priority": 0,
+        "children": [],
+        "activity_page_label": 0,
+        "area_page_label": [],
+        "is_all_area": false,
+        "default_show": false,
+        "ch_ext": "",
+        "sort": 0,
+        "area_label_list": [],
+        "ext_attr_list": [],
+        "recommend_route_list": [],
+        "point_count": 0,
+        "alias_name": "",
+        "item_id": 107026,
+        "rec_refresh_hour": 0,
+        "tips": ""
+    },
+    "point": [
+        {
+            "id": 64906,
+            "label_id": 554,
+            "x_pos": -2720,
+            "y_pos": 778.75,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-12 10:09:36",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64905,
+            "label_id": 554,
+            "x_pos": -2818,
+            "y_pos": 97.5,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-01 17:16:44",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": {
+                "group_id": 122,
+                "floor_id": 154
+            }
+        },
+        {
+            "id": 64904,
+            "label_id": 554,
+            "x_pos": -2983.25,
+            "y_pos": 574.75,
+            "author_name": "FTFuture",
+            "ctime": "2024-07-31 16:58:31",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":67}",
+            "ext_attrs_map": {
+                "6": 67
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64903,
+            "label_id": 554,
+            "x_pos": -2933,
+            "y_pos": 549,
+            "author_name": "FTFuture",
+            "ctime": "2024-09-14 10:45:52",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": null
+        },
+        {
+            "id": 64902,
+            "label_id": 554,
+            "x_pos": -2934,
+            "y_pos": 683.25,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-12 10:09:41",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64901,
+            "label_id": 554,
+            "x_pos": -3042.5,
+            "y_pos": 798,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-12 10:09:46",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64900,
+            "label_id": 554,
+            "x_pos": -3498.25,
+            "y_pos": 887.5,
+            "author_name": "FTFuture",
+            "ctime": "2024-07-31 16:58:30",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64899,
+            "label_id": 554,
+            "x_pos": -3628.125,
+            "y_pos": 801.875,
+            "author_name": "FTFuture",
+            "ctime": "2024-07-31 16:58:32",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64898,
+            "label_id": 554,
+            "x_pos": -2559.875,
+            "y_pos": -144.875,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-07 17:21:08",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":67}",
+            "ext_attrs_map": {
+                "6": 67
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64897,
+            "label_id": 554,
+            "x_pos": -3374.25,
+            "y_pos": -204.5,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-01 17:16:34",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":67}",
+            "ext_attrs_map": {
+                "6": 67
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64896,
+            "label_id": 554,
+            "x_pos": -2495.5,
+            "y_pos": 993.25,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-07 14:01:18",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64895,
+            "label_id": 554,
+            "x_pos": -2690.5,
+            "y_pos": 937,
+            "author_name": "FTFuture",
+            "ctime": "2024-11-07 14:44:59",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64894,
+            "label_id": 554,
+            "x_pos": -2797.5,
+            "y_pos": 1158.25,
+            "author_name": "FTFuture",
+            "ctime": "2024-07-31 16:58:31",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64893,
+            "label_id": 554,
+            "x_pos": -2690.25,
+            "y_pos": 1201,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:32",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64892,
+            "label_id": 554,
+            "x_pos": -2667.25,
+            "y_pos": 1120.25,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:23",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64891,
+            "label_id": 554,
+            "x_pos": -2665,
+            "y_pos": 730.25,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:22",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": {
+                "group_id": 124,
+                "floor_id": 156
+            }
+        },
+        {
+            "id": 64890,
+            "label_id": 554,
+            "x_pos": -2647,
+            "y_pos": 802.25,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:27",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": {
+                "group_id": 124,
+                "floor_id": 156
+            }
+        },
+        {
+            "id": 64889,
+            "label_id": 554,
+            "x_pos": -2498,
+            "y_pos": 763.75,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:23",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": {
+                "group_id": 124,
+                "floor_id": 156
+            }
+        },
+        {
+            "id": 64888,
+            "label_id": 554,
+            "x_pos": -2124.5,
+            "y_pos": 493,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-01 10:56:51",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64887,
+            "label_id": 554,
+            "x_pos": -2174,
+            "y_pos": 572.75,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-01 10:56:49",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64886,
+            "label_id": 554,
+            "x_pos": -2409,
+            "y_pos": 661,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:27",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64885,
+            "label_id": 554,
+            "x_pos": -2618.75,
+            "y_pos": 786.25,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-12 10:09:42",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64884,
+            "label_id": 554,
+            "x_pos": -3104.25,
+            "y_pos": 1251.25,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-12 10:09:47",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64883,
+            "label_id": 554,
+            "x_pos": -2889.5,
+            "y_pos": 1101.5,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-12 10:09:39",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64882,
+            "label_id": 554,
+            "x_pos": -2942.5,
+            "y_pos": 839.25,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:30",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": {
+                "group_id": 123,
+                "floor_id": 155
+            }
+        },
+        {
+            "id": 64881,
+            "label_id": 554,
+            "x_pos": -2955.5,
+            "y_pos": 882.5,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:28",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64880,
+            "label_id": 554,
+            "x_pos": -2934,
+            "y_pos": 766,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-12 10:09:38",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64879,
+            "label_id": 554,
+            "x_pos": -2853.25,
+            "y_pos": 953.5,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-12 10:09:45",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64878,
+            "label_id": 554,
+            "x_pos": -3089,
+            "y_pos": 860.75,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-12 10:09:44",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64877,
+            "label_id": 554,
+            "x_pos": -2339.25,
+            "y_pos": 345.25,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-06 13:56:53",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64876,
+            "label_id": 554,
+            "x_pos": -2284.375,
+            "y_pos": -63.875,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:25",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64875,
+            "label_id": 554,
+            "x_pos": -2265.75,
+            "y_pos": 22.625,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:31",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64874,
+            "label_id": 554,
+            "x_pos": -2426,
+            "y_pos": 179.5,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:21",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64873,
+            "label_id": 554,
+            "x_pos": -2822.625,
+            "y_pos": 420.875,
+            "author_name": "FTFuture",
+            "ctime": "2024-07-31 16:58:32",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64872,
+            "label_id": 554,
+            "x_pos": -2962.25,
+            "y_pos": 312.25,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-12 10:09:37",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":67}",
+            "ext_attrs_map": {
+                "6": 67
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64871,
+            "label_id": 554,
+            "x_pos": -2753.75,
+            "y_pos": 69.25,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:26",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64870,
+            "label_id": 554,
+            "x_pos": -2646.625,
+            "y_pos": 147.625,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-06 13:56:49",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64869,
+            "label_id": 554,
+            "x_pos": -2593,
+            "y_pos": 72.5,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:29",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":67}",
+            "ext_attrs_map": {
+                "6": 67
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64868,
+            "label_id": 554,
+            "x_pos": -2543.375,
+            "y_pos": -238.125,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-01 17:16:12",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64867,
+            "label_id": 554,
+            "x_pos": -2715.5,
+            "y_pos": -80,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-05 00:37:24",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64866,
+            "label_id": 554,
+            "x_pos": -2909.75,
+            "y_pos": -51,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-06 13:56:51",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64865,
+            "label_id": 554,
+            "x_pos": -2898.274398598329,
+            "y_pos": -189.64399864899224,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-06 13:56:52",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64864,
+            "label_id": 554,
+            "x_pos": -3003.125,
+            "y_pos": -302,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-07 17:21:03",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64863,
+            "label_id": 554,
+            "x_pos": -3121.75,
+            "y_pos": -233.375,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-12 10:09:42",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64862,
+            "label_id": 554,
+            "x_pos": -3211.75,
+            "y_pos": -328.75,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-01 17:16:32",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":67}",
+            "ext_attrs_map": {
+                "6": 67
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64861,
+            "label_id": 554,
+            "x_pos": -3362,
+            "y_pos": 149,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-01 17:16:24",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64860,
+            "label_id": 554,
+            "x_pos": -3261.5,
+            "y_pos": -8.5,
+            "author_name": "FTFuture",
+            "ctime": "2024-07-31 16:58:30",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64859,
+            "label_id": 554,
+            "x_pos": -3463.375,
+            "y_pos": 267.75,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-01 17:16:05",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64858,
+            "label_id": 554,
+            "x_pos": -3356,
+            "y_pos": 386.25,
+            "author_name": "FTFuture",
+            "ctime": "2024-02-07 14:01:06",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64857,
+            "label_id": 554,
+            "x_pos": -3094.5,
+            "y_pos": 662,
+            "author_name": "FTFuture",
+            "ctime": "2024-03-12 10:09:43",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        }
+    ]
+}

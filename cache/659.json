@@ -1,0 +1,112 @@
+{
+    "label": {
+        "id": 659,
+        "name": "",
+        "icon": "https://act-webstatic.hoyoverse.com/map_manage/20241122/bf19b26f8ab7d68d46cb3410088ac88b_2431260076850028149.png",
+        "parent_id": 1,
+        "depth": 2,
+        "node_type": 2,
+        "jump_type": 0,
+        "jump_target_id": 0,
+        "wiki_jump_url": "",
+        "display_priority": 0,
+        "children": [],
+        "activity_page_label": 0,
+        "area_page_label": [],
+        "is_all_area": false,
+        "default_show": false,
+        "ch_ext": "",
+        "sort": 0,
+        "area_label_list": [],
+        "ext_attr_list": [],
+        "recommend_route_list": [],
+        "point_count": 0,
+        "alias_name": "",
+        "item_id": 0,
+        "rec_refresh_hour": 0,
+        "tips": ""
+    },
+    "point": [
+        {
+            "id": 81006,
+            "label_id": 659,
+            "x_pos": -10228.865654687173,
+            "y_pos": 3526.804979424529,
+            "author_name": "EricMonlye",
+            "ctime": "2024-11-23 22:47:05",
+            "display_state": 1,
+            "area_id": 11,
+            "ext_attrs": "{}",
+            "ext_attrs_map": {},
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 81005,
+            "label_id": 659,
+            "x_pos": -10455.721386537418,
+            "y_pos": 3975.1111540539387,
+            "author_name": "EricMonlye",
+            "ctime": "2024-11-23 22:47:05",
+            "display_state": 1,
+            "area_id": 11,
+            "ext_attrs": "{}",
+            "ext_attrs_map": {},
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": {
+                "group_id": 151,
+                "floor_id": 197
+            }
+        },
+        {
+            "id": 81004,
+            "label_id": 659,
+            "x_pos": -9780.370482013248,
+            "y_pos": 5245.295178744504,
+            "author_name": "EricMonlye",
+            "ctime": "2024-11-23 22:47:05",
+            "display_state": 1,
+            "area_id": 11,
+            "ext_attrs": "{}",
+            "ext_attrs_map": {},
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 81003,
+            "label_id": 659,
+            "x_pos": -9182.611698961642,
+            "y_pos": 4430.549361961588,
+            "author_name": "EricMonlye",
+            "ctime": "2024-11-23 22:47:05",
+            "display_state": 1,
+            "area_id": 11,
+            "ext_attrs": "{}",
+            "ext_attrs_map": {},
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 81002,
+            "label_id": 659,
+            "x_pos": -8401.60848074426,
+            "y_pos": 3658.542071211814,
+            "author_name": "EricMonlye",
+            "ctime": "2024-11-23 22:47:05",
+            "display_state": 1,
+            "area_id": 11,
+            "ext_attrs": "{}",
+            "ext_attrs_map": {},
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": {
+                "group_id": 142,
+                "floor_id": 183
+            }
+        }
+    ]
+}

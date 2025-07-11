@@ -1,0 +1,147 @@
+{
+    "label": {
+        "id": 466,
+        "name": "Chess Pieces Activation Device",
+        "icon": "https://act.hoyoverse.com/map_manage/20221228/911424d917dd1dcbc862802a4c9972aa_7954885772081349328.png",
+        "parent_id": 4,
+        "depth": 2,
+        "node_type": 2,
+        "jump_type": 0,
+        "jump_target_id": 0,
+        "wiki_jump_url": "",
+        "display_priority": 0,
+        "children": [],
+        "activity_page_label": 0,
+        "area_page_label": [],
+        "is_all_area": false,
+        "default_show": false,
+        "ch_ext": "",
+        "sort": 0,
+        "area_label_list": [
+            4
+        ],
+        "ext_attr_list": [],
+        "recommend_route_list": [],
+        "point_count": 0,
+        "alias_name": "",
+        "item_id": 0,
+        "rec_refresh_hour": 0,
+        "tips": ""
+    },
+    "point": [
+        {
+            "id": 43377,
+            "label_id": 466,
+            "x_pos": -6377.004332418517,
+            "y_pos": 3859.9189259419663,
+            "author_name": "\u6293\u9a6c\u7279\u9e21",
+            "ctime": "2024-08-16 10:17:47",
+            "display_state": 1,
+            "area_id": 4,
+            "ext_attrs": "",
+            "ext_attrs_map": {},
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 43376,
+            "label_id": 466,
+            "x_pos": -6319.528810583142,
+            "y_pos": 4557.875818465878,
+            "author_name": "\u6293\u9a6c\u7279\u9e21",
+            "ctime": "2023-01-18 11:00:59",
+            "display_state": 1,
+            "area_id": 4,
+            "ext_attrs": "{}",
+            "ext_attrs_map": {},
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": {
+                "group_id": 31,
+                "floor_id": 102
+            }
+        },
+        {
+            "id": 43375,
+            "label_id": 466,
+            "x_pos": -6076.297981535085,
+            "y_pos": 4674.2076977528295,
+            "author_name": "\u6293\u9a6c\u7279\u9e21",
+            "ctime": "2024-08-16 10:17:46",
+            "display_state": 1,
+            "area_id": 4,
+            "ext_attrs": "",
+            "ext_attrs_map": {},
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 43374,
+            "label_id": 466,
+            "x_pos": -6163.297656603695,
+            "y_pos": 3089.61719697066,
+            "author_name": "\u6293\u9a6c\u7279\u9e21",
+            "ctime": "2023-01-18 11:00:59",
+            "display_state": 1,
+            "area_id": 4,
+            "ext_attrs": "{}",
+            "ext_attrs_map": {},
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": {
+                "group_id": 60,
+                "floor_id": 96
+            }
+        },
+        {
+            "id": 43373,
+            "label_id": 466,
+            "x_pos": -5979.799497881565,
+            "y_pos": 4750.687963000771,
+            "author_name": "\u6293\u9a6c\u7279\u9e21",
+            "ctime": "2023-01-18 11:00:59",
+            "display_state": 1,
+            "area_id": 4,
+            "ext_attrs": "{}",
+            "ext_attrs_map": {},
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": {
+                "group_id": 32,
+                "floor_id": 87
+            }
+        },
+        {
+            "id": 43372,
+            "label_id": 466,
+            "x_pos": -4834.849429004982,
+            "y_pos": 4319.891117882247,
+            "author_name": "\u6293\u9a6c\u7279\u9e21",
+            "ctime": "2023-01-18 03:00:59",
+            "display_state": 1,
+            "area_id": 4,
+            "ext_attrs": "",
+            "ext_attrs_map": {},
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 43371,
+            "label_id": 466,
+            "x_pos": -5257.620027444467,
+            "y_pos": 3803.664889288136,
+            "author_name": "\u6293\u9a6c\u7279\u9e21",
+            "ctime": "2023-01-18 03:00:59",
+            "display_state": 1,
+            "area_id": 4,
+            "ext_attrs": "",
+            "ext_attrs_map": {},
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        }
+    ]
+}

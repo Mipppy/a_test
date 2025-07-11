@@ -1,0 +1,1157 @@
+{
+    "label": {
+        "id": 5,
+        "name": "Anemoculus",
+        "icon": "https://act.hoyoverse.com/map_manage/20221111/ae38e52b6e4af57a84a6cbce325973e2_7240507367130463540.png",
+        "parent_id": 4,
+        "depth": 2,
+        "node_type": 2,
+        "jump_type": 1,
+        "jump_target_id": 2354,
+        "wiki_jump_url": "",
+        "display_priority": 0,
+        "children": [],
+        "activity_page_label": 0,
+        "area_page_label": [
+            1
+        ],
+        "is_all_area": false,
+        "default_show": false,
+        "ch_ext": "",
+        "sort": 0,
+        "area_label_list": [
+            1
+        ],
+        "ext_attr_list": [],
+        "recommend_route_list": [],
+        "point_count": 0,
+        "alias_name": "",
+        "item_id": 107001,
+        "rec_refresh_hour": 0,
+        "tips": ""
+    },
+    "point": [
+        {
+            "id": 24676,
+            "label_id": 5,
+            "x_pos": 686.9994636304364,
+            "y_pos": 650.9990438360946,
+            "author_name": "\u89c2\u6d4b\u67a2-\u6539",
+            "ctime": "2025-02-18 10:24:40",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 1743,
+            "label_id": 5,
+            "x_pos": -1069.5,
+            "y_pos": -262.5,
+            "author_name": "\u597d\u591a\u68a8",
+            "ctime": "2020-09-19 00:46:39",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 858,
+            "label_id": 5,
+            "x_pos": 625.0006223383425,
+            "y_pos": 595.5019704433498,
+            "author_name": "\u6d1b\u5c0f\u6797",
+            "ctime": "2025-02-19 10:25:56",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 839,
+            "label_id": 5,
+            "x_pos": 637.2934871754605,
+            "y_pos": 795.0310176454741,
+            "author_name": "\u6d1b\u5c0f\u6797",
+            "ctime": "2020-09-16 19:18:23",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 165,
+            "label_id": 5,
+            "x_pos": -931,
+            "y_pos": -404.29632719353094,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:36:33",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 164,
+            "label_id": 5,
+            "x_pos": -834,
+            "y_pos": -537.7670703263034,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:35:08",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 163,
+            "label_id": 5,
+            "x_pos": -731.5,
+            "y_pos": -490.1717979637931,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:34:57",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 162,
+            "label_id": 5,
+            "x_pos": -385.5,
+            "y_pos": -196.51876204291034,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:34:32",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 161,
+            "label_id": 5,
+            "x_pos": -302,
+            "y_pos": -230.3330858215861,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:34:12",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 160,
+            "label_id": 5,
+            "x_pos": -308,
+            "y_pos": -163.2175587048414,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:34:03",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 134,
+            "label_id": 5,
+            "x_pos": 443.5,
+            "y_pos": -449,
+            "author_name": "vdbvbd",
+            "ctime": "2020-09-15 04:24:21",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 133,
+            "label_id": 5,
+            "x_pos": 1062,
+            "y_pos": -629.5,
+            "author_name": "vdbvbd",
+            "ctime": "2024-05-17 10:56:16",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 132,
+            "label_id": 5,
+            "x_pos": 209,
+            "y_pos": 394,
+            "author_name": "\u63d0\u74e6\u7279\u5f92\u6b65\u56e2",
+            "ctime": "2020-09-15 04:23:52",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 131,
+            "label_id": 5,
+            "x_pos": 102,
+            "y_pos": 391,
+            "author_name": "\u63d0\u74e6\u7279\u5f92\u6b65\u56e2",
+            "ctime": "2020-09-15 04:23:25",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 130,
+            "label_id": 5,
+            "x_pos": 286.05730802390826,
+            "y_pos": 555.5060495334828,
+            "author_name": "Epheme",
+            "ctime": "2020-09-15 04:23:02",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 129,
+            "label_id": 5,
+            "x_pos": 362.50382763372636,
+            "y_pos": 590.0141716833114,
+            "author_name": "Epheme",
+            "ctime": "2020-09-15 04:22:53",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 128,
+            "label_id": 5,
+            "x_pos": -319,
+            "y_pos": 131,
+            "author_name": "\u63d0\u74e6\u7279\u5f92\u6b65\u56e2",
+            "ctime": "2020-09-15 04:22:33",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": null
+        },
+        {
+            "id": 127,
+            "label_id": 5,
+            "x_pos": -203,
+            "y_pos": 330,
+            "author_name": "\u7e41\u534e\u5982\u98ce",
+            "ctime": "2020-09-15 04:22:03",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": null
+        },
+        {
+            "id": 126,
+            "label_id": 5,
+            "x_pos": -308.5,
+            "y_pos": -7.908486158744836,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:21:19",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": null
+        },
+        {
+            "id": 124,
+            "label_id": 5,
+            "x_pos": -1132.5,
+            "y_pos": -229.69130254194488,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:20:53",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 123,
+            "label_id": 5,
+            "x_pos": -881,
+            "y_pos": -330.70330535926905,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:20:44",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 122,
+            "label_id": 5,
+            "x_pos": -933.5,
+            "y_pos": -361.7273109939172,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:20:30",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 121,
+            "label_id": 5,
+            "x_pos": -242,
+            "y_pos": 65.87846383375177,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:20:18",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": null
+        },
+        {
+            "id": 120,
+            "label_id": 5,
+            "x_pos": 814,
+            "y_pos": 79.5,
+            "author_name": "vdbvbd",
+            "ctime": "2020-09-15 04:20:03",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 117,
+            "label_id": 5,
+            "x_pos": 1023,
+            "y_pos": -17.5,
+            "author_name": "vdbvbd",
+            "ctime": "2025-02-25 17:01:45",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 115,
+            "label_id": 5,
+            "x_pos": 511.22063137116857,
+            "y_pos": 437.94524316855086,
+            "author_name": "Epheme",
+            "ctime": "2020-09-15 04:18:40",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 114,
+            "label_id": 5,
+            "x_pos": 478.6085467210878,
+            "y_pos": 494.4307550093972,
+            "author_name": "Epheme",
+            "ctime": "2020-09-15 04:18:11",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 113,
+            "label_id": 5,
+            "x_pos": 603.1671509809876,
+            "y_pos": 463.4204376839393,
+            "author_name": "Epheme",
+            "ctime": "2020-09-15 04:17:41",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 112,
+            "label_id": 5,
+            "x_pos": 516.5,
+            "y_pos": 13,
+            "author_name": "vdbvbd",
+            "ctime": "2020-09-15 04:17:24",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 99,
+            "label_id": 5,
+            "x_pos": 376.50186701502844,
+            "y_pos": 640.4980295566502,
+            "author_name": "\u6d1b\u5c0f\u6797",
+            "ctime": "2020-09-15 04:10:44",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 95,
+            "label_id": 5,
+            "x_pos": 438.6482567114026,
+            "y_pos": 755.9138521570512,
+            "author_name": "Epheme",
+            "ctime": "2020-09-15 04:09:26",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 93,
+            "label_id": 5,
+            "x_pos": 852.5012446766859,
+            "y_pos": 845.5004926108377,
+            "author_name": "\u6d1b\u5c0f\u6797",
+            "ctime": "2020-09-15 04:08:47",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 91,
+            "label_id": 5,
+            "x_pos": 821.9993776616575,
+            "y_pos": 948.9985221674879,
+            "author_name": "\u6d1b\u5c0f\u6797",
+            "ctime": "2024-01-19 10:08:43",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 90,
+            "label_id": 5,
+            "x_pos": 1172.2702688590616,
+            "y_pos": 830.5409528259893,
+            "author_name": "Epheme",
+            "ctime": "2020-09-15 04:07:38",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 89,
+            "label_id": 5,
+            "x_pos": 840.5,
+            "y_pos": -484,
+            "author_name": "vdbvbd",
+            "ctime": "2020-09-15 04:07:08",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 88,
+            "label_id": 5,
+            "x_pos": 892,
+            "y_pos": -181,
+            "author_name": "vdbvbd",
+            "ctime": "2025-02-25 10:14:36",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 87,
+            "label_id": 5,
+            "x_pos": 519.7085379916562,
+            "y_pos": 349.49801271936576,
+            "author_name": "\u6d1b\u5c0f\u6797",
+            "ctime": "2020-09-15 04:06:41",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 86,
+            "label_id": 5,
+            "x_pos": 361.0947739370349,
+            "y_pos": 400.93123061017695,
+            "author_name": "Epheme",
+            "ctime": "2020-09-15 04:06:12",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 85,
+            "label_id": 5,
+            "x_pos": -20,
+            "y_pos": 244,
+            "author_name": "\u63d0\u74e6\u7279\u5f92\u6b65\u56e2",
+            "ctime": "2020-09-15 04:05:36",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": null
+        },
+        {
+            "id": 84,
+            "label_id": 5,
+            "x_pos": -306,
+            "y_pos": 707,
+            "author_name": "\u63d0\u74e6\u7279\u5f92\u6b65\u56e2",
+            "ctime": "2020-09-15 04:05:16",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 83,
+            "label_id": 5,
+            "x_pos": -338.5,
+            "y_pos": 561,
+            "author_name": "\u63d0\u74e6\u7279\u5f92\u6b65\u56e2",
+            "ctime": "2020-09-15 04:04:54",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 82,
+            "label_id": 5,
+            "x_pos": -283,
+            "y_pos": 238,
+            "author_name": "\u63d0\u74e6\u7279\u5f92\u6b65\u56e2",
+            "ctime": "2020-09-15 04:04:28",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 1,
+            "point_group": null
+        },
+        {
+            "id": 81,
+            "label_id": 5,
+            "x_pos": -1018.9962357885197,
+            "y_pos": -158.99174731711355,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2024-01-11 14:37:26",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 80,
+            "label_id": 5,
+            "x_pos": -266,
+            "y_pos": -317.2550675089792,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:03:57",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 79,
+            "label_id": 5,
+            "x_pos": -373,
+            "y_pos": -323.65154320955844,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:03:47",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 78,
+            "label_id": 5,
+            "x_pos": -365.5,
+            "y_pos": -372.799327897862,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:03:38",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 77,
+            "label_id": 5,
+            "x_pos": -718,
+            "y_pos": -603.5033757923725,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:03:22",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 76,
+            "label_id": 5,
+            "x_pos": -1051,
+            "y_pos": -550.8450886389103,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:03:07",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 75,
+            "label_id": 5,
+            "x_pos": -988,
+            "y_pos": -383.715308176593,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:02:56",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 74,
+            "label_id": 5,
+            "x_pos": -417.00564631722045,
+            "y_pos": -65.49535786587603,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2024-01-11 14:37:27",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 73,
+            "label_id": 5,
+            "x_pos": -680.5,
+            "y_pos": 3.9137221096414123,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 04:00:44",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 72,
+            "label_id": 5,
+            "x_pos": -468,
+            "y_pos": 661,
+            "author_name": "\u63d0\u74e6\u7279\u5f92\u6b65\u56e2",
+            "ctime": "2020-09-15 04:00:35",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 71,
+            "label_id": 5,
+            "x_pos": 944.6556222741219,
+            "y_pos": 985.8949736466393,
+            "author_name": "Epheme",
+            "ctime": "2020-09-15 04:00:23",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 70,
+            "label_id": 5,
+            "x_pos": 707,
+            "y_pos": 1110,
+            "author_name": "\u6d1b\u5c0f\u6797",
+            "ctime": "2020-09-15 04:00:12",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 68,
+            "label_id": 5,
+            "x_pos": 676.7465709616163,
+            "y_pos": 691.9680729950956,
+            "author_name": "Epheme",
+            "ctime": "2020-09-15 03:59:52",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 67,
+            "label_id": 5,
+            "x_pos": 652.6421721161123,
+            "y_pos": 317.02097672776245,
+            "author_name": "Epheme",
+            "ctime": "2020-09-15 03:59:44",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 66,
+            "label_id": 5,
+            "x_pos": 516,
+            "y_pos": 256.5,
+            "author_name": "vdbvbd",
+            "ctime": "2020-09-15 03:59:33",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 65,
+            "label_id": 5,
+            "x_pos": -59,
+            "y_pos": 471,
+            "author_name": "\u63d0\u74e6\u7279\u5f92\u6b65\u56e2",
+            "ctime": "2020-09-15 03:59:23",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 64,
+            "label_id": 5,
+            "x_pos": -559,
+            "y_pos": -332.7168085287585,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 03:59:10",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 63,
+            "label_id": 5,
+            "x_pos": -771.5,
+            "y_pos": 124.5,
+            "author_name": "\u6d6e\u8f6e\u9662\u957f",
+            "ctime": "2020-09-15 03:59:02",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 62,
+            "label_id": 5,
+            "x_pos": -559,
+            "y_pos": -125.34358828674476,
+            "author_name": "\u9b54\u56fd\u6653",
+            "ctime": "2020-09-15 03:58:52",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 61,
+            "label_id": 5,
+            "x_pos": -74.5,
+            "y_pos": -340,
+            "author_name": "\u63d0\u74e6\u7279\u5f92\u6b65\u56e2",
+            "ctime": "2020-09-15 03:58:28",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 60,
+            "label_id": 5,
+            "x_pos": -23.5,
+            "y_pos": -243.5,
+            "author_name": "\u6d6e\u8f6e\u9662\u957f",
+            "ctime": "2020-09-15 03:58:21",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 59,
+            "label_id": 5,
+            "x_pos": 356,
+            "y_pos": -585.5,
+            "author_name": "vdbvbd",
+            "ctime": "2020-09-15 03:58:11",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 58,
+            "label_id": 5,
+            "x_pos": 1517,
+            "y_pos": -342,
+            "author_name": "vdbvbd",
+            "ctime": "2024-07-01 18:17:11",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":66}",
+            "ext_attrs_map": {
+                "6": 66
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        },
+        {
+            "id": 56,
+            "label_id": 5,
+            "x_pos": 1922.0018670150284,
+            "y_pos": 683.9995073891628,
+            "author_name": "\u6d1b\u5c0f\u6797",
+            "ctime": "2024-07-21 14:57:04",
+            "display_state": 1,
+            "area_id": 1,
+            "ext_attrs": "{\"6\":65}",
+            "ext_attrs_map": {
+                "6": 65
+            },
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        }
+    ]
+}

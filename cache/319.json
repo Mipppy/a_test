@@ -1,0 +1,49 @@
+{
+    "label": {
+        "id": 319,
+        "name": "The Crux: The Alcor",
+        "icon": "https://act-webstatic.hoyoverse.com/map_manage/20240726/4a0f9e1667273d98ebe66fdfb99b331d_4041655545632778907.png",
+        "parent_id": 1,
+        "depth": 2,
+        "node_type": 2,
+        "jump_type": 0,
+        "jump_target_id": 0,
+        "wiki_jump_url": "",
+        "display_priority": 0,
+        "children": [],
+        "activity_page_label": 0,
+        "area_page_label": [],
+        "is_all_area": false,
+        "default_show": false,
+        "ch_ext": "",
+        "sort": 0,
+        "area_label_list": [
+            2,
+            2
+        ],
+        "ext_attr_list": [],
+        "recommend_route_list": [],
+        "point_count": 0,
+        "alias_name": "\u5317\u6597\u8239",
+        "item_id": 0,
+        "rec_refresh_hour": 0,
+        "tips": ""
+    },
+    "point": [
+        {
+            "id": 20370,
+            "label_id": 319,
+            "x_pos": 399,
+            "y_pos": 2737,
+            "author_name": "\u89c2\u6d4b\u67a2-\u6539",
+            "ctime": "2024-07-21 14:57:04",
+            "display_state": 1,
+            "area_id": 2,
+            "ext_attrs": "",
+            "ext_attrs_map": {},
+            "z_level": 0,
+            "icon_sign": 0,
+            "point_group": null
+        }
+    ]
+}
