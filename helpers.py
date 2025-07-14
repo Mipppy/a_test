@@ -11,7 +11,7 @@ from PyQt5.QtWidgets import (
     QLabel,
     QProgressBar
 )
-import os, json, sys, time, typing
+import os, json, sys, time, typing, math
 from typing import Dict, List, Union, Optional, Any, cast
 from collections import OrderedDict
 
@@ -95,21 +95,18 @@ class ImageCacheManager:
 
     @classmethod
     def get_base_pixmap(cls, image_path: str, target_size: QSize) -> QPixmap:
-        print('cache hit')
         return cls._get_pixmap(cls._base_cache, image_path, target_size)
 
     @classmethod
     def get_overlay_pixmap(cls, image_path: str, target_size: QSize) -> QPixmap:
-        print('cache hit (overlay)')
         return cls._get_pixmap(cls._overlay_cache, image_path, target_size)
 class CompositeIcon(QGraphicsItemGroup):
-    def __init__(self, base_image_path: str, overlay_image_path: str, position: QPointF, item_data=None, size=100):
+    def __init__(self, base_image_path: str, overlay_image_path: str, position: QPointF, item_data=None, size=100, zoom_level: float = 1):
         super().__init__()
         self.setFlags(QGraphicsItemGroup.GraphicsItemFlag.ItemIsSelectable)
         self.setAcceptHoverEvents(True)
 
         self.anchor_offset = QPointF(63.5, 110)
-
         base_target_size = QSize(size, size)
         base_pixmap = ImageCacheManager.get_base_pixmap(base_image_path, base_target_size)
 
@@ -145,24 +142,26 @@ class CompositeIcon(QGraphicsItemGroup):
         self.min_scale = 0.02
         self.max_scale = 1.75
         self.current_scale = scale_factor
+        self.setTransformOriginPoint(self.anchor_offset)
         self.setScale(scale_factor)
-
+        self.zoom_level = zoom_level
+        
         self.logical_anchor_pos = position
         self.update_position()
 
     def update_position(self):
-        scaled_offset = self.scaled_anchor * self.scale()
-        new_x = self.logical_anchor_pos.x() - scaled_offset.x()
-        new_y = self.logical_anchor_pos.y() - scaled_offset.y()
-        self.setPos(new_x, new_y)
+        # A reverse linear function seems to correct the displacement from the zoom.
+        # Why I need to divide by 2 for the x is beyond me, but looking at the pixel placements it appears to be correct.
+        adjusted_x = reverse_linear_mapping(self.zoom_level)
+        self.setPos(self.logical_anchor_pos - self.anchor_offset + QPointF(adjusted_x / 2, adjusted_x))
 
     def scale_adjust_zoom(self, zoom_level):
         scale_factor = max(self.min_scale, min(0.5 / (zoom_level), self.max_scale))
         self.setScale(scale_factor)
+        self.zoom_level = zoom_level
         self.update_position()
 
     def mousePressEvent(self, event):
-        print(f"Icon clicked at: {self.pos().x()}, {self.pos().y()}")
         self.setSelected(True)
         max_z = max((item.zValue() for item in self.scene().items()), default=0)
         self.setZValue(max_z + 1)
@@ -196,6 +195,11 @@ def print_progress_bar(iteration, total, prefix='', suffix='', length=50, fill='
     print(f'\r{prefix} |{bar}| {percent}% {suffix}', end='', flush=True)  
     if iteration == total:
         print()  
+
+def reverse_linear_mapping(x, min_val=0.01, max_val=40, x_min=0.02, x_max=1.75):
+    x_clamped = max(x_min, min(x_max, x))
+    normalized = (x_max - x_clamped) / (x_max - x_min)
+    return min_val + normalized * (max_val - min_val)
 
 def resize_font_to_fit(label: QLabel, text: str, max_width:int):
     font = label.font()
@@ -262,3 +266,22 @@ class CustomRoundedProgressBar(QProgressBar):
             painter.setPen(QColor("black"))
             painter.setFont(self.font())
             painter.drawText(bar_rect, Qt.AlignmentFlag.AlignCenter, text)
+
+
+class BasicGrouping:
+    _removed_obj_cache: dict = {}
+    def __init__(self):
+        pass
+        
+    @classmethod
+    def save_object_point(cls, obj_id: int, obj_pos: QPoint | QPointF):
+        cls._removed_obj_cache[obj_id] = (cls._removed_obj_cache.get(obj_id, []) + [obj_pos])
+    
+    @classmethod
+    def remove_object_points(cls, obj_id: int):
+        cls._removed_obj_cache[obj_id] = []
+    
+    @classmethod
+    def find_obj_group(cls, obj_id:int, num: int, radius: int, mark: bool):
+        None
+    

@@ -1,11 +1,12 @@
 from PyQt5.QtWidgets import QWidget, QHBoxLayout
 import sys
 import os
+import math
 from PyQt5.QtCore import Qt, QRectF, QTimer, QEvent, QPoint, QPointF
 from PyQt5.QtGui import QPixmap, QPainter, QBrush, QPen, QImage, QColor, QKeySequence
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsPixmapItem, QGraphicsEllipseItem, QShortcut
+from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsPixmapItem, QGraphicsEllipseItem, QShortcut, QMenu, QAction
 
-from helpers import original_pos_to_pyqt5, CompositeIcon, gimmie_data, get_all_ids
+from helpers import original_pos_to_pyqt5, CompositeIcon, gimmie_data, get_all_ids, BasicGrouping
 from menu import ButtonPanel
 from alerts import AlertsManager
 
@@ -52,10 +53,11 @@ class MapViewer(QGraphicsView):
             levels.add(point['z_level'])
             new_pos = original_pos_to_pyqt5(point['x_pos'], point['y_pos'])
             image_path = f"images/resources/official/{data['label']['id']}.jpg"
-            
+            BasicGrouping.save_object_point(_id, new_pos)
             self.alert_manager.create_alert(f"Loading", image_path, i, data_len-1, True, 250)
             comps_ico = CompositeIcon("images/map/official/icons/high_res/arrow_pointer.png" if point['z_level'] ==
-                                      0 else "images/map/official/icons/high_res/underground_arrow_pointer.png", image_path, new_pos, point)
+                                      0 else "images/map/official/icons/high_res/underground_arrow_pointer.png", image_path, new_pos, point, zoom_level=self.current_zoom)
+            comps_ico.scale_adjust_zoom(self.current_zoom)
             icos.append(comps_ico)
             self.scene().addItem(comps_ico)
             QApplication.processEvents()
@@ -64,6 +66,7 @@ class MapViewer(QGraphicsView):
     def get_new_ids(self):
         for thing in self.current_loaded_ids[:]:
             if thing not in self.btn.selected_ids:
+                BasicGrouping.remove_object_points(thing)
                 self.current_loaded_ids.remove(thing)
                 for ico in self.composite_icons[thing]:
                     self.scene().removeItem(ico)
@@ -143,7 +146,6 @@ class MainWindow(QMainWindow):
         layout = QHBoxLayout(container)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
-
         layout.addWidget(self.btn)
         layout.addWidget(self.map_view)
 

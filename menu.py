@@ -1,17 +1,32 @@
 import os
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap, QFont, QColor, QPalette
+from PyQt5.QtCore import Qt, QEvent
+from PyQt5.QtGui import QPixmap, QFont, QColor, QPalette, QMouseEvent
 from PyQt5.QtWidgets import (
     QWidget, QGridLayout, QLabel, QScrollArea,
-    QVBoxLayout, QHBoxLayout, QFrame, QPushButton
+    QVBoxLayout, QHBoxLayout, QFrame, QPushButton,QAction,QMenu
 )
-from helpers import get_all_ids
+from helpers import get_all_ids, BasicGrouping
 from alerts import AlertsManager
 class ClickableIcon(QFrame):
+    _shared_menu = None
+    _action_info = None
+    _action_delete = None
+    
+    @classmethod
+    def _init_shared_menu(cls):
+        if cls._shared_menu is None:
+            cls._shared_menu = QMenu()
+            cls._action_info = QAction("Info")
+            cls._action_delete = QAction("Delete")
+            cls._shared_menu.addAction(cls._action_info)
+            cls._shared_menu.addAction(cls._action_delete)
+            
     def __init__(self, item_id, label_text, pixmap, click_callback):
         super().__init__()
         self.item_id = item_id
         self.callback = click_callback
+        self._init_shared_menu()
+        self.selected = False
         self.setFrameShape(QFrame.Shape.StyledPanel)
         self.setFixedSize(70, 85)
         self.setStyleSheet("border: 1px solid lightgray; border-radius: 5px;")
@@ -36,14 +51,25 @@ class ClickableIcon(QFrame):
         layout.addWidget(text_label)
         self.setLayout(layout)
 
-    def mousePressEvent(self, event):
-        self.callback(self.item_id, self)
+    def mousePressEvent(self, event: QMouseEvent):
+        if event.button() == Qt.MouseButton.RightButton:
+            if self.selected == False:
+                self.callback(self.item_id, self)
+            self._shared_menu.exec_(event.globalPos())
+        else:
+            self.callback(self.item_id, self)
 
     def set_selected(self, selected: bool):
         if selected:
+            self.selected = True
             self.setStyleSheet("border: 2px solid green; background-color: #c7f0c4; border-radius: 5px;")
         else:
+            self.selected = False
             self.setStyleSheet("border: 1px solid lightgray; border-radius: 5px;")
+    
+    def find_obj_groups(self, num_of_groups: int = 15, radius: int = 10, mark:bool = False):
+        BasicGrouping.find_obj_group(self.item_id, num=num_of_groups, radius=radius, mark=mark)
+
 class ButtonPanel(QWidget):
     def __init__(self, alert_manager: AlertsManager):
         super().__init__()
