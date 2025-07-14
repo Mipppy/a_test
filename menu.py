@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout, QHBoxLayout, QFrame, QPushButton
 )
 from helpers import get_all_ids
-
+from alerts import AlertsManager
 class ClickableIcon(QFrame):
     def __init__(self, item_id, label_text, pixmap, click_callback):
         super().__init__()
@@ -45,14 +45,14 @@ class ClickableIcon(QFrame):
         else:
             self.setStyleSheet("border: 1px solid lightgray; border-radius: 5px;")
 class ButtonPanel(QWidget):
-    def __init__(self):
+    def __init__(self, alert_manager: AlertsManager):
         super().__init__()
         self.setWindowTitle("Control Panel")
         self.setFixedSize(400, 600)
         self.selected_ids = []
         self.container_widget = QWidget()
         self.main_layout = QHBoxLayout(self)
-
+        self.alert_manager = alert_manager
         menu_layout = QVBoxLayout()
         content_layout = QVBoxLayout()
         content_scroll_area = QScrollArea()
@@ -95,7 +95,6 @@ class ButtonPanel(QWidget):
             row, col = divmod(i, 3)
             image_path = f"images/resources/official/{item[0]}.jpg"
             pixmap = QPixmap(image_path).scaled(30, 30, Qt.AspectRatioMode.KeepAspectRatio)
-
             button = ClickableIcon(item[0], item[1], pixmap, self.toggle_selection)
             grid_layout.addWidget(button, row, col)
 

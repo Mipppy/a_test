@@ -7,14 +7,15 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from helpers import original_pos_to_pyqt5, CompositeIcon, gimmie_data, get_all_ids
 from menu import ButtonPanel
-
+from alerts import AlertsManager
 
 class MapViewer(QGraphicsView):
-    def __init__(self, scene: QGraphicsScene, btn: ButtonPanel):
+    def __init__(self, scene: QGraphicsScene, btn: ButtonPanel, alert_manager: AlertsManager):
         super().__init__(scene)
         self.setRenderHint(QPainter.RenderHint.Antialiasing)
         self.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform)
         self.setDragMode(QGraphicsView.DragMode.ScrollHandDrag)
+        self.alert_manager = alert_manager
         self.setSceneRect(scene.itemsBoundingRect())
         self.setTransformationAnchor(
             QGraphicsView.ViewportAnchor.AnchorUnderMouse)
@@ -46,13 +47,18 @@ class MapViewer(QGraphicsView):
         self.current_loaded_ids.append(_id)
         icos = []
         levels = set()
-        for point in data['point']:
+        data_len = len(data['point'])
+        for i, point in enumerate(data['point']):
             levels.add(point['z_level'])
             new_pos = original_pos_to_pyqt5(point['x_pos'], point['y_pos'])
+            image_path = f"images/resources/official/{data['label']['id']}.jpg"
+            
+            self.alert_manager.create_alert(f"Loading", image_path, i, data_len-1, True, 250)
             comps_ico = CompositeIcon("images/map/official/icons/high_res/arrow_pointer.png" if point['z_level'] ==
-                                      0 else "images/map/official/icons/high_res/underground_arrow_pointer.png", f"images/resources/official/{data['label']['id']}.jpg", new_pos, point)
+                                      0 else "images/map/official/icons/high_res/underground_arrow_pointer.png", image_path, new_pos, point)
             icos.append(comps_ico)
             self.scene().addItem(comps_ico)
+            QApplication.processEvents()
         self.composite_icons[_id] = icos
 
     def get_new_ids(self):
@@ -88,12 +94,14 @@ class MapViewer(QGraphicsView):
 
 
 class MainWindow(QMainWindow):
-    def __init__(self, btn: ButtonPanel):
+    def __init__(self):
         super().__init__()
         self.setWindowTitle("Map Viewer")
-        self.setGeometry(100, 100, 1200, 800)
-
-        self.btn = btn
+        screen_geo = QApplication.primaryScreen().availableGeometry()
+        self.setGeometry(screen_geo)
+        self.alert_manager = AlertsManager(self)
+        self.btn = ButtonPanel(alert_manager = self.alert_manager)
+        self.btn.alert_manager = self.alert_manager
         self.btn.setParent(self)
         self.btn.setVisible(False)
         toggle_shortcut = QShortcut(QKeySequence(Qt.Key.Key_Tab), self)
@@ -101,12 +109,11 @@ class MainWindow(QMainWindow):
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         images_directory = "images/map/official/high_res"
         scene = QGraphicsScene(self)
-        scene.setBackgroundBrush(QBrush(QColor("#181c24")))
+        scene.setBackgroundBrush(QBrush(QColor("#111820")))
 
         image_files = [f for f in os.listdir(
             images_directory) if f.endswith('.webp')]
         images = []
-
         for image_file in image_files:
             coords = self.get_coordinates_from_filename(image_file)
             if coords:
@@ -130,7 +137,7 @@ class MainWindow(QMainWindow):
             item.setPos(int(x * tile_width), int(y * tile_height))
             scene.addItem(item)
 
-        self.map_view = MapViewer(scene, self.btn)
+        self.map_view = MapViewer(scene, self.btn, self.alert_manager)
 
         container = QWidget()
         layout = QHBoxLayout(container)
@@ -154,12 +161,17 @@ class MainWindow(QMainWindow):
                 return x, y
         except ValueError:
             return None
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        if self.alert_manager.overlay and self.alert_manager.overlay.isVisible():
+            parent_geo = self.alert_manager.parent.contentsRect()
+            x = parent_geo.x() + int((parent_geo.width() - self.alert_manager.overlay.width()) / 2)
+            y = parent_geo.y() + 20
+            self.alert_manager.overlay.move(x, y)
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    btn = ButtonPanel()
-    window = MainWindow(btn)
+    window = MainWindow()
     window.show()
-
     sys.exit(app.exec_())
