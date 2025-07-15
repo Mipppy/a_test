@@ -16,7 +16,7 @@ from PyQt5.QtWidgets import (
 )
 import math
 from typing import Dict, List, Union, Optional, Any, cast
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 
 from composite_icon import CompositeIcon
 
@@ -42,11 +42,11 @@ class BasicGrouping:
             if box.scene():
                 box.scene().removeItem(box)
         cls._group_boxes.clear()
-
+        
     @classmethod
     def find_obj_group(cls, obj_id: int, num: int = 5, distance: int = 100, mark: bool = False) -> list:
-        def is_close(a: QPointF, b: QPointF, threshold: float) -> bool:
-            return math.hypot(a.x() - b.x(), a.y() - b.y()) <= threshold
+        def is_close(p1: QPointF, p2: QPointF) -> bool:
+            return (p1 - p2).manhattanLength() <= distance  # Faster approximation
 
         all_objs = cls._comp_ico_pointers.get(obj_id, [])
         if not all_objs:
@@ -54,13 +54,30 @@ class BasicGrouping:
 
         cls.clear_group_boxes()
         visited = set()
-        groups = []
+        icon_positions = {icon: icon.pos() for icon in all_objs}
 
-        for obj in all_objs:
-            if obj in visited:
+        # Grid hashing
+        cell_size = distance
+        grid = defaultdict(list)
+        for icon, pos in icon_positions.items():
+            key = (int(pos.x()) // cell_size, int(pos.y()) // cell_size)
+            grid[key].append(icon)
+
+        def get_neighbors(icon):
+            pos = icon_positions[icon]
+            cx, cy = int(pos.x()) // cell_size, int(pos.y()) // cell_size
+            for dx in (-1, 0, 1):
+                for dy in (-1, 0, 1):
+                    for neighbor in grid.get((cx + dx, cy + dy), []):
+                        if neighbor != icon and is_close(icon_positions[icon], icon_positions[neighbor]):
+                            yield neighbor
+
+        groups = []
+        for icon in all_objs:
+            if icon in visited:
                 continue
+            queue = [icon]
             group = set()
-            queue = [obj]
 
             while queue:
                 current = queue.pop()
@@ -68,11 +85,7 @@ class BasicGrouping:
                     continue
                 visited.add(current)
                 group.add(current)
-
-                current_pos = current.pos()
-                for neighbor in all_objs:
-                    if neighbor not in visited and is_close(current_pos, neighbor.pos(), distance):
-                        queue.append(neighbor)
+                queue.extend(n for n in get_neighbors(current) if n not in visited)
 
             if len(group) >= 2:
                 groups.append(group)
@@ -80,17 +93,19 @@ class BasicGrouping:
         merged = True
         while merged:
             merged = False
-            for i in range(len(groups)):
-                for j in range(i + 1, len(groups)):
-                    if groups[i] is None or groups[j] is None:
-                        continue
-                    if any(is_close(a.pos(), b.pos(), distance * 1.5) for a in groups[i] for b in groups[j]):
-                        groups[i].update(groups[j])
-                        groups[j] = None
+            new_groups = []
+            while groups:
+                current = groups.pop()
+                for i, g in enumerate(groups):
+                    if any(is_close(icon_positions[a], icon_positions[b]) for a in current for b in g):
+                        current |= g
+                        groups.pop(i)
                         merged = True
-            groups = [g for g in groups if g is not None]
+                        break
+                new_groups.append(current)
+            groups = new_groups
 
-        groups = [list(g) for g in groups]
+        groups = [list(g) for g in groups if g]
         groups.sort(key=len, reverse=True)
 
         if mark:
@@ -98,7 +113,6 @@ class BasicGrouping:
                 for icon in group:
                     icon.setSelected(True)
                 cls.mark_group(group)
-                QApplication.processEvents()
 
         return groups[:num] if not mark else groups
 

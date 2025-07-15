@@ -16,8 +16,10 @@ from PyQt5.QtWidgets import (
 )
 from typing import Dict, List, Union, Optional, Any, cast
 from collections import OrderedDict
+import requests
 
-from helpers import reverse_linear_mapping
+from helpers import reverse_linear_mapping, transform_x_to_y, convert_id_or_oid
+from loaded_data import LoadedData
 
 class CompositeIcon(QGraphicsItemGroup):
     _global_z_counter = 1
@@ -67,7 +69,9 @@ class CompositeIcon(QGraphicsItemGroup):
         self.base_width = base_pixmap.width()
         self.base_height = base_pixmap.height()
         self.item_data = item_data
-
+        print(f"Base ID:{self.item_data['id']}")
+        self.unofficial_id = LoadedData.official_id_to_unofficial_id.get(self.item_data['id'])
+        print(f"Unofficial ID: {self.unofficial_id}")
         self.min_scale = 0.02
         self.max_scale = 1.75
         self.current_scale = scale_factor
@@ -94,6 +98,7 @@ class CompositeIcon(QGraphicsItemGroup):
 
     def mousePressEvent(self, event):
         self.setSelected(True)
+        print(self.unofficial_id)
         CompositeIcon.raise_to_top(self)
         super().mousePressEvent(event)
 

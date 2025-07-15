@@ -1,57 +1,109 @@
 import os
-from PyQt5.QtCore import Qt, QEvent, QPointF
-from PyQt5.QtGui import QPixmap, QFont, QColor, QPalette, QMouseEvent
+from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtGui import QPixmap, QFont, QIcon
 from PyQt5.QtWidgets import (
     QWidget, QGridLayout, QLabel, QScrollArea,
-    QVBoxLayout, QHBoxLayout, QFrame, QPushButton, QAction, QMenu, QMainWindow
+    QVBoxLayout, QHBoxLayout, QFrame, QPushButton,
+    QToolButton, QMainWindow
 )
-from functools import partial
-from typing import List, Dict,Tuple, Union, Sequence, Callable
+from typing import List, Union, Tuple, Sequence
 
 from helpers import get_all_ids
-
-from alerts import AlertsManager
-
 from menu_button import ClickableIcon
+
 
 class ButtonPanel(QWidget):
     selected_ids: list[int] = []
+
     def __init__(self, parent: QMainWindow):
         super().__init__()
         self.window_view = parent
         self.setWindowTitle("Control Panel")
         self.setFixedSize(400, 600)
-        self.container_widget = QWidget()
-        self.main_layout = QHBoxLayout(self)
-        menu_layout = QVBoxLayout()
-        content_layout = QVBoxLayout()
-        content_scroll_area = QScrollArea()
-        content_scroll_area.setWidgetResizable(True)
-        content_container_widget = QWidget()
-        content_container_widget.setLayout(content_layout)
-        content_scroll_area.setWidget(content_container_widget)
+
+        self.main_layout = QVBoxLayout(self)
+
+        self.navbar = QHBoxLayout()
+        self.main_layout.addLayout(self.navbar)
+
+        self.nav_buttons = {}
+        buttons_info = [
+            ("Location Data", "images/resources/official/3.jpg"),
+            ("Web", "images/resources/official/52.jpg"),
+            ("Settings", "images/resources/official/558.jpg`"),
+        ]
+
+        for name, icon_path in buttons_info:
+            btn = QToolButton()
+            btn.setIcon(QIcon(icon_path))
+            btn.setToolButtonStyle(Qt.ToolButtonIconOnly)  # icon only, no text
+            btn.setCheckable(True)
+            btn.setFixedSize(60, 60)
+            btn.setIconSize(QSize(48, 48))  
+            btn.setAutoExclusive(True)  # Only one button checked at a time
+            btn.clicked.connect(lambda checked, n=name: self.on_nav_clicked(n))
+            self.navbar.addWidget(btn)
+            self.nav_buttons[name] = btn
+
+        self.nav_buttons["Location Data"].setChecked(True)
+
+        self.views = {}
+
+        self.location_view = QWidget()
+        location_layout = QHBoxLayout(self.location_view)
+
+        self.menu_layout = QVBoxLayout()
+        location_layout.addLayout(self.menu_layout, 1)
+
+        self.content_scroll_area = QScrollArea()
+        self.content_scroll_area.setWidgetResizable(True)
+        self.content_container_widget = QWidget()
+        self.content_layout_inside = QVBoxLayout(self.content_container_widget)
+        self.content_scroll_area.setWidget(self.content_container_widget)
+        location_layout.addWidget(self.content_scroll_area, 3)
+
+        self.views["Location Data"] = self.location_view
+
+        self.web_view = QWidget()
+        web_layout = QVBoxLayout(self.web_view)
+        web_layout.addWidget(QLabel("<h2>Web View (empty)</h2>"))
+        self.views["Web"] = self.web_view
+
+        self.settings_view = QWidget()
+        settings_layout = QVBoxLayout(self.settings_view)
+        settings_layout.addWidget(QLabel("<h2>Settings View (empty)</h2>"))
+        self.views["Settings"] = self.settings_view
+
+        for view in self.views.values():
+            self.main_layout.addWidget(view)
+            view.hide()
+
+        self.location_view.show()
 
         self.ids = get_all_ids()
         self.section_widgets = {}
 
         for idx, (key, value) in enumerate(self.ids.items()):
             menu_button = QPushButton(key)
-            menu_button.clicked.connect(
-                lambda _, idx=idx: self.scroll_to_group(idx))
-            menu_layout.addWidget(menu_button)
+            menu_button.clicked.connect(lambda _, idx=idx: self.scroll_to_group(idx))
+            self.menu_layout.addWidget(menu_button)
 
             section = self.create_group_section(key, value)
             self.section_widgets[idx] = section
-            content_layout.addWidget(section)
+            self.content_layout_inside.addWidget(section)
 
-        self.main_layout.addLayout(menu_layout, 1)
-        self.main_layout.addWidget(content_scroll_area, 3)
-        self.content_scroll_area = content_scroll_area
+    def on_nav_clicked(self, name: str):
+        for view in self.views.values():
+            view.hide()
+        self.views[name].show()
 
-    def create_group_section(self, group_name: str, data: List[Union[Tuple[str, str], Sequence[str]]]) -> QWidget:
+    def create_group_section(
+        self, group_name: str, data: List[Union[Tuple[str, str], Sequence[str]]]
+    ) -> QWidget:
         section_widget = QWidget()
         section_layout = QVBoxLayout()
 
+        # Bold title label
         b_f = QFont()
         b_f.setBold(True)
         title_label = QLabel(group_name)
@@ -64,10 +116,8 @@ class ButtonPanel(QWidget):
         for i, item in enumerate(data):
             row, col = divmod(i, 3)
             image_path = f"images/resources/official/{item[0]}.jpg"
-            pixmap = QPixmap(image_path).scaled(
-                30, 30, Qt.AspectRatioMode.KeepAspectRatio)
-            button = ClickableIcon(
-                item[0], item[1], pixmap, self.toggle_selection, parent=self.window_view.map_view)
+            pixmap = QPixmap(image_path).scaled(30, 30, Qt.AspectRatioMode.KeepAspectRatio)
+            button = ClickableIcon(item[0], item[1], pixmap, self.toggle_selection, parent=self.window_view.map_view)
             grid_layout.addWidget(button, row, col)
 
         section_layout.addLayout(grid_layout)

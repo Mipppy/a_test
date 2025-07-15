@@ -6,12 +6,12 @@ from PyQt5.QtCore import Qt, QRectF, QTimer, QEvent, QPoint, QPointF
 from PyQt5.QtGui import QPixmap, QPainter, QBrush, QPen, QImage, QColor, QKeySequence, QWheelEvent, QResizeEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsPixmapItem, QGraphicsEllipseItem, QShortcut, QMenu, QAction
 
-from helpers import original_pos_to_pyqt5, gimmie_data, get_all_ids
+from helpers import original_pos_to_pyqt5, gimmie_data, get_all_ids, generate_id_to_oid_mapping
 from grouping import BasicGrouping
 from composite_icon import CompositeIcon
 from menu import ButtonPanel
 from alerts import AlertsManager
-
+from loaded_data import LoadedData
 
 class MapViewer(QGraphicsView):
     def __init__(self, scene: QGraphicsScene):
@@ -101,6 +101,7 @@ class MapViewer(QGraphicsView):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        LoadedData.init()
         self.setWindowTitle("Map Viewer")
         screen_geo = QApplication.primaryScreen().availableGeometry()
         self.setGeometry(screen_geo)
@@ -111,7 +112,8 @@ class MainWindow(QMainWindow):
         images_directory = "images/map/official/high_res"
         scene = QGraphicsScene(self)
         scene.setBackgroundBrush(QBrush(QColor("#111820")))
-
+        if not os.path.exists('application_data/official_unofficial_ids.json'):
+            generate_id_to_oid_mapping('data/unofficial/button_data.json','data/official/full/full_dataset.json', 'application_data/official_unofficial_ids.json')
         image_files = [f for f in os.listdir(
             images_directory) if f.endswith('.webp')]
         images = []

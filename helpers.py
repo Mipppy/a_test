@@ -23,6 +23,8 @@ import math
 from typing import Dict, List, Union, Optional, Any, cast
 from collections import OrderedDict
 
+from loaded_data import LoadedData
+
 """
 These are 100% magic numbers, but before you get mad at me and say: "Gasp! Magic Numbers! The Horror!"
 hear me out.  These are neccessary.
@@ -60,18 +62,18 @@ def clear_cache() -> None:
 
 
 def get_all_ids_large_list() -> List[List[Union[int, str]]]:
-    with open('data/official/full_dataset.json', "r") as file:
-        data = json.load(file)
-
-    return [[label['id'], label['name']] for label in data["label_list"]]
+    return [
+        [label['id'], label['name']]
+        for label in LoadedData.official_dataset.get("label_list", [])
+    ]
 
 
 def get_all_ids() -> Dict[str, List[List[Union[int, str]]]]:
+    # FUTURE .40s TIME SAVE BY CREATING A FILE WITH IDS MAPPED TO NAMES.
     full_data = {}
     for filename in os.listdir('data/official/'):
         if filename.endswith('.json') and 'full_dataset' not in filename:
             file_path = os.path.join('data/official/', filename)
-
             with open(file_path, 'r') as file:
                 data = json.load(file)
             full_data[data['name']] = [[_id['id'], _id['name']]
@@ -79,29 +81,30 @@ def get_all_ids() -> Dict[str, List[List[Union[int, str]]]]:
     return full_data
 
 
+def gimmie_data(label_id: int) -> Dict[str, Optional[Any]]:
+    """
+    Given a label ID, returns its metadata and associated point data from memory.
+    """
+    LoadedData.init()
+    full_data = LoadedData.official_dataset
 
-def gimmie_data(id: int) -> Dict[str, Optional[Any]]:
-    with open('data/official/full/full_dataset.json', "r") as file:
-        data: Dict[str, Dict[Any]] = json.load(file)
+    label_data = next(
+        (label for label in full_data.get("label_list", []) if cast(dict, label).get("id") == label_id),
+        None
+    )
 
-    label_data: Optional[Dict[str, Any]] = next(
-        (label for label in data["label_list"] if cast(dict, label).get("id") == id), None)
-
-    pos_data: List[Dict[str, Any]] = [
-        point for point in data["point_list"] if cast(dict, point).get("label_id") == id
+    pos_data = [
+        point for point in full_data.get("point_list", [])
+        if cast(dict, point).get("label_id") == label_id
     ]
 
-    output_data: Dict[str, Optional[Any]] = {
+    return {
         "label": label_data,
         "point": pos_data
     }
 
-    # save_resource_to_cache(output_data, label_data['id'] if label_data else None)
 
-    return output_data
-
-
-def reverse_linear_mapping(x: int | float, min_val: int | float=0.01, max_val: int | float =40, x_min: int | float=0.02, x_max=1.75):
+def reverse_linear_mapping(x: int | float, min_val: int | float = 0.01, max_val: int | float = 40, x_min: int | float = 0.02, x_max=1.75):
     x_clamped = max(x_min, min(x_max, x))
     normalized = (x_max - x_clamped) / (x_max - x_min)
     return min_val + normalized * (max_val - min_val)
@@ -121,3 +124,114 @@ def resize_font_to_fit(label: QLabel, text: str, max_width: int):
     label.setFont(font)
 
 
+from difflib import get_close_matches
+
+def generate_id_to_oid_mapping(dataset1_path: str, dataset2_path: str, output_path: str) -> None:
+    with open(dataset1_path, 'r', encoding='utf-8') as f1:
+        oid_to_name = json.load(f1)
+
+    name_to_oid = {name: oid for oid, name in oid_to_name.items() if isinstance(name, str)}
+
+    with open(dataset2_path, 'r', encoding='utf-8') as f2:
+        label_data = json.load(f2)
+        label_list = label_data.get("label_list", [])
+
+    id_to_oid = {}
+    unmatched_labels = []
+
+    for entry in label_list:
+        if not isinstance(entry, dict):
+            continue
+        name = entry.get("name")
+        id_ = entry.get("id")
+        if name in name_to_oid:
+            id_to_oid[str(id_)] = name_to_oid[name]
+        else:
+            unmatched_labels.append((id_, name))
+
+    used_oids = set(id_to_oid.values())
+    remaining_names = [name for name in name_to_oid if name_to_oid[name] not in used_oids]
+
+    still_unmatched = []
+    for id_, name in unmatched_labels:
+        matches = get_close_matches(name, remaining_names, n=1, cutoff=0.5)
+        if matches:
+            best = matches[0]
+            id_to_oid[str(id_)] = name_to_oid[best]
+            remaining_names.remove(best)
+        else:
+            still_unmatched.append((id_, name))
+
+    for id_, name in still_unmatched:
+        if not remaining_names:
+            print(f"[WARN] Out of fallback names for id {id_} ('{name}')")
+            continue
+        forced = remaining_names.pop(0)
+        id_to_oid[str(id_)] = name_to_oid[forced]
+        print(f"[FORCED] Assigned '{name}' (id {id_}) to fallback '{forced}'")
+
+    with open(output_path, 'w', encoding='utf-8') as fout:
+        json.dump(id_to_oid, fout, indent=2, ensure_ascii=False)
+
+    print(f"[✔] Saved {len(id_to_oid)} entries to {output_path}")
+    print(f"[ℹ] Total input entries: {len(label_list)}, Mapped: {len(id_to_oid)}")
+
+def convert_id_or_oid(value: Union[int, str]) -> Union[int, str, None]:
+    if isinstance(value, int) or (isinstance(value, str) and value.isdigit()):
+        return LoadedData.id_oid_dataset.get(str(value))
+    elif isinstance(value, str):
+        for k, v in LoadedData.id_oid_dataset.items():
+            if v == value:
+                return int(k)
+    return None
+
+def transform_x_to_y(x: float) -> float:
+    a = -0.9954
+    b = 94203.8
+    return a * x + b
+
+
+
+def map_all_ids_by_xpos(
+    output_path: str = "application_data/map_object_mapping.json",
+) -> Dict[int, int]:
+    """
+    Loops through all unique label_ids in dataset A, converts each to unofficial type using convert_id_or_oid,
+    and maps each A.id to B.id by sorting by x_pos and lng. Saves combined mapping to file.
+    """
+    # Load datasets
+    points_a = LoadedData.official_dataset.get("point_list", [])
+
+
+    points_b = LoadedData.unofficial_dataset.get("data", [])
+
+    # Build mapping result
+    full_mapping = {}
+    label_ids = sorted(set(p['label_id'] for p in points_a))
+
+    for label_id in label_ids:
+        converted = convert_id_or_oid(label_id)
+        if not converted:
+            print(f"[skip] Could not convert label_id {label_id}")
+            continue
+
+        filtered_a = [p for p in points_a if p['label_id'] == label_id]
+        filtered_b = [r for r in points_b if len(r) > 1 and r[1] == converted]
+
+        if not filtered_a or not filtered_b:
+            print(f"[skip] No matches for label_id {label_id} → {converted} (A: {len(filtered_a)}, B: {len(filtered_b)})")
+            continue
+
+        sorted_a = sorted(filtered_a, key=lambda obj: obj['x_pos'])
+        sorted_b = sorted(filtered_b, key=lambda arr: arr[4])  # lng
+
+        for a_obj, b_arr in zip(sorted_a, sorted_b):
+            full_mapping[a_obj['id']] = b_arr[0]
+
+        print(f"[ok] Mapped {min(len(sorted_a), len(sorted_b))} items (label_id: {label_id} → {converted})")
+
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(full_mapping, f, ensure_ascii=False, indent=2)
+
+    print(f"\nTotal mapped: {len(full_mapping)}")
+    return full_mapping

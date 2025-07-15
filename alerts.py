@@ -31,7 +31,7 @@ class AlertOverlay(QWidget):
         self.image_label.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
         self.text_label = QLabel()
-        self.text_label.setStyleSheet("background: transparent;")
+        self.text_label.setStyleSheet("background: transparent; color: white;")
         self.text_label.setWordWrap(False)
         self.text_label.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
         self.text_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
@@ -161,9 +161,9 @@ class AlertsManager(QObject):
         if self.overlay is None or not override:
             self.overlay = AlertOverlay(self.parent)
             self.overlay.setParent(self.parent)
-            self.overlay.setWindowFlags(Qt.Widget | Qt.FramelessWindowHint)
-            self.overlay.setAttribute(Qt.WA_TransparentForMouseEvents)
-            self.overlay.setAttribute(Qt.WA_ShowWithoutActivating)
+            self.overlay.setWindowFlags(Qt.WindowType.Widget | Qt.WindowType.FramelessWindowHint)
+            self.overlay.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
+            self.overlay.setAttribute(Qt.WidgetAttribute.WA_ShowWithoutActivating)
 
         if isinstance(image, str):
             pixmap = self._load_image(image)
