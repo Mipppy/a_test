@@ -191,23 +191,19 @@ def map_all_ids_by_xpos(
         converted = converted.replace('btn-', '')
 
         filtered_a = [p for p in points_a if p['label_id'] == label_id]
-        filtered_b = [r for r in points_b if len(r) > 1 and r[1] == converted and r[2] == 2]
+        filtered_b = [r for r in points_b if len(r) > 1 and r[1] == converted and r[2] == 2] # My beloved
         if not filtered_a or not filtered_b:
             print(f"[skip] No matches for label_id {label_id} -> {converted} (A: {len(filtered_a)}, B: {len(filtered_b)})")
             continue
 
-        print(f"Mapping label_id={label_id} to {converted} with {len(filtered_a)} A items and {len(filtered_b)} B items")
 
-        # Sort A by x_pos, y_pos
         sorted_a = sorted(filtered_a, key=lambda obj: (obj['x_pos'], obj.get('y_pos', 0)))
-        # Sort B by lng (index 4)
         sorted_b = sorted(filtered_b, key=lambda arr: arr[4])
 
         if len(sorted_a) != len(sorted_b):
             print(f"[warning] Length mismatch for label_id {label_id}: A={len(sorted_a)}, B={len(sorted_b)}")
 
         for i, (a_obj, b_arr) in enumerate(zip(sorted_a, sorted_b)):
-            print(f"Mapping {i}: A.id={a_obj['id']} -> B.id={b_arr[0]} (x_pos={a_obj['x_pos']}, y_pos={a_obj.get('y_pos', 'n/a')}, lng={b_arr[4]})")
             full_mapping[a_obj['id']] = b_arr[0]
 
     with open(output_path, 'w', encoding='utf-8') as f:
