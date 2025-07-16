@@ -108,35 +108,17 @@ class MainWindow(QMainWindow):
         toggle_shortcut = QShortcut(QKeySequence(Qt.Key.Key_Tab), self)
         toggle_shortcut.activated.connect(self.toggle_panel)
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
-        images_directory = "images/map/official/high_res"
+        self.images_directory = "images/map/official/high_res"
+        self.tile_size = 256
         scene = QGraphicsScene(self)
         scene.setBackgroundBrush(QBrush(QColor("#111820")))
         if not os.path.exists('application_data/official_unofficial_ids.json'):
             generate_id_to_oid_mapping('data/unofficial/button_data.json','data/official/full/full_dataset.json', 'application_data/official_unofficial_ids.json')
-        image_files = [f for f in os.listdir(
-            images_directory) if f.endswith('.webp')]
-        images = []
-        for image_file in image_files:
-            coords = self.get_coordinates_from_filename(image_file)
-            if coords:
-                x, y = coords
-                images.append((x, y, image_file))
 
-        images.sort()
-        self.installEventFilter(self)
-        pixmaps: dict[tuple[int, int], QPixmap] = {}
-        for x, y, image_file in images:
-            image_path = os.path.join(images_directory, image_file)
-            image = QImage(image_path)
-            pixmap = QPixmap.fromImage(image)
-            pixmaps[(x, y)] = pixmap
-
-        tile_width = max(pixmap.width() for pixmap in pixmaps.values())
-        tile_height = max(pixmap.height() for pixmap in pixmaps.values())
-
-        for (x, y), pixmap in pixmaps.items():
+        # Making this async actually makes it slower!!!
+        for (x, y), pixmap in LoadedData.map_pixmaps.items():
             item = QGraphicsPixmapItem(pixmap)
-            item.setPos(int(x * tile_width), int(y * tile_height))
+            item.setPos(int(x * self.tile_size), int(y * self.tile_size))
             scene.addItem(item)
 
         self.map_view = MapViewer(scene)
@@ -154,16 +136,6 @@ class MainWindow(QMainWindow):
 
     def toggle_panel(self):
         self.btn.setVisible(not self.btn.isVisible())
-
-    def get_coordinates_from_filename(self, filename: str):
-        try:
-            base_name: str = os.path.splitext(filename)[0]
-            parts = base_name.split("_")
-            if len(parts) >= 2:
-                x, y = int(parts[0]), int(parts[1])
-                return x, y
-        except ValueError:
-            return None
 
     def resizeEvent(self, event : QResizeEvent):
         super().resizeEvent(event)

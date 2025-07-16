@@ -1,3 +1,4 @@
+from difflib import get_close_matches
 from PyQt5.QtCore import Qt, QPointF, QPoint
 from PyQt5.QtGui import QPixmap, QFontMetrics, QIcon
 from PyQt5.QtWidgets import (
@@ -74,7 +75,8 @@ def gimmie_data(label_id: int) -> Dict[str, Optional[Any]]:
     full_data = LoadedData.official_dataset
 
     label_data = next(
-        (label for label in full_data.get("label_list", []) if cast(dict, label).get("id") == label_id),
+        (label for label in full_data.get("label_list", [])
+         if cast(dict, label).get("id") == label_id),
         None
     )
 
@@ -109,11 +111,10 @@ def resize_font_to_fit(label: QLabel, text: str, max_width: int):
     label.setFont(font)
 
 
-from difflib import get_close_matches
-
 def generate_id_to_oid_mapping(dataset1_path: str, dataset2_path: str, output_path: str) -> None:
 
-    name_to_oid = {name: oid for oid, name in LoadedData.unofficial_btn_data.items() if isinstance(name, str)}
+    name_to_oid = {name: oid for oid, name in LoadedData.unofficial_btn_data.items(
+    ) if isinstance(name, str)}
 
     id_to_oid = {}
     unmatched_labels = []
@@ -129,7 +130,8 @@ def generate_id_to_oid_mapping(dataset1_path: str, dataset2_path: str, output_pa
             unmatched_labels.append((id_, name))
 
     used_oids = set(id_to_oid.values())
-    remaining_names = [name for name in name_to_oid if name_to_oid[name] not in used_oids]
+    remaining_names = [
+        name for name in name_to_oid if name_to_oid[name] not in used_oids]
 
     still_unmatched = []
     for id_, name in unmatched_labels:
@@ -153,7 +155,9 @@ def generate_id_to_oid_mapping(dataset1_path: str, dataset2_path: str, output_pa
         json.dump(id_to_oid, fout, indent=2, ensure_ascii=False)
 
     print(f"[✔] Saved {len(id_to_oid)} entries to {output_path}")
-    print(f"[ℹ] Total input entries: {len(label_list)}, Mapped: {len(id_to_oid)}")
+    print(
+        f"[ℹ] Total input entries: {len(label_list)}, Mapped: {len(id_to_oid)}")
+
 
 def convert_id_or_oid(value: Union[int, str]) -> Union[int, str, None]:
     if isinstance(value, int) or (isinstance(value, str) and value.isdigit()):
@@ -164,11 +168,11 @@ def convert_id_or_oid(value: Union[int, str]) -> Union[int, str, None]:
                 return int(k)
     return None
 
+
 def transform_x_to_y(x: float) -> float:
     a = -0.9954
     b = 94203.8
     return a * x + b
-
 
 
 def map_all_ids_by_xpos(
@@ -191,17 +195,20 @@ def map_all_ids_by_xpos(
         converted = converted.replace('btn-', '')
 
         filtered_a = [p for p in points_a if p['label_id'] == label_id]
-        filtered_b = [r for r in points_b if len(r) > 1 and r[1] == converted and r[2] == 2] # My beloved
+        filtered_b = [r for r in points_b if len(
+            r) > 1 and r[1] == converted and r[2] == 2]  # My beloved
         if not filtered_a or not filtered_b:
-            print(f"[skip] No matches for label_id {label_id} -> {converted} (A: {len(filtered_a)}, B: {len(filtered_b)})")
+            print(
+                f"[skip] No matches for label_id {label_id} -> {converted} (A: {len(filtered_a)}, B: {len(filtered_b)})")
             continue
 
-
-        sorted_a = sorted(filtered_a, key=lambda obj: (obj['x_pos'], obj.get('y_pos', 0)))
+        sorted_a = sorted(filtered_a, key=lambda obj: (
+            obj['x_pos'], obj.get('y_pos', 0)))
         sorted_b = sorted(filtered_b, key=lambda arr: arr[4])
 
         if len(sorted_a) != len(sorted_b):
-            print(f"[warning] Length mismatch for label_id {label_id}: A={len(sorted_a)}, B={len(sorted_b)}")
+            print(
+                f"[warning] Length mismatch for label_id {label_id}: A={len(sorted_a)}, B={len(sorted_b)}")
 
         for i, (a_obj, b_arr) in enumerate(zip(sorted_a, sorted_b)):
             full_mapping[a_obj['id']] = b_arr[0]
@@ -226,6 +233,16 @@ def get_icon_from_url(url) -> QIcon:
         return None
 
 
+def get_coordinates_from_filename(filename: str):
+    try:
+        base_name: str = os.path.splitext(filename)[0]
+        parts = base_name.split("_")
+        if len(parts) >= 2:
+            x, y = int(parts[0]), int(parts[1])
+            return x, y
+    except ValueError:
+        return None
+
 
 def get_pixmap_from_url(url: str) -> QPixmap | None:
     try:
@@ -241,4 +258,3 @@ def get_pixmap_from_url(url: str) -> QPixmap | None:
             return None
     except Exception as e:
         return None
-
