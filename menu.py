@@ -11,6 +11,7 @@ from typing import List, Union, Tuple, Sequence, Optional
 from helpers import get_all_ids
 from menu_button import ClickableIcon
 from comment_card import CommentCard
+from loaded_data import LoadedData
 
 class ButtonPanel(QWidget):
     selected_ids: list[int] = []
@@ -93,7 +94,7 @@ class ButtonPanel(QWidget):
 
         self.location_view.show()
 
-        self.ids = get_all_ids()
+        self.ids = LoadedData.all_official_ids
         self.section_widgets = {}
 
         for idx, (key, value) in enumerate(self.ids.items()):
@@ -127,8 +128,7 @@ class ButtonPanel(QWidget):
 
         for i, item in enumerate(data):
             row, col = divmod(i, 3)
-            image_path = f"images/resources/official/{item[0]}.jpg"
-            pixmap = QPixmap(image_path).scaled(30, 30, Qt.AspectRatioMode.KeepAspectRatio)
+            pixmap = LoadedData.btn_pixmaps.get(int(item[0])).scaled(30, 30, Qt.AspectRatioMode.KeepAspectRatio)
             button = ClickableIcon(item[0], item[1], pixmap, self.toggle_selection, parent=self.window_view.map_view)
             grid_layout.addWidget(button, row, col)
 

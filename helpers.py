@@ -8,6 +8,7 @@ import os
 import json
 from typing import Dict, List, Union, Optional, Any, cast
 import requests
+from functools import lru_cache
 
 from loaded_data import LoadedData
 
@@ -53,7 +54,7 @@ def get_all_ids_large_list() -> List[List[Union[int, str]]]:
         for label in LoadedData.official_dataset.get("label_list", [])
     ]
 
-
+@lru_cache(maxsize=1)
 def get_all_ids() -> Dict[str, List[List[Union[int, str]]]]:
     # FUTURE .40s TIME SAVE BY CREATING A FILE WITH IDS MAPPED TO NAMES.
     full_data = {}
@@ -71,7 +72,6 @@ def gimmie_data(label_id: int) -> Dict[str, Optional[Any]]:
     """
     Given a label ID, returns its metadata and associated point data from memory.
     """
-    LoadedData.init()
     full_data = LoadedData.official_dataset
 
     label_data = next(

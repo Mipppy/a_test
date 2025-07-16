@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QHBoxLayout
 import sys
 import os
+import random
 from PyQt5.QtCore import Qt, QRectF, QTimer, QPointF
 from PyQt5.QtGui import QPixmap, QPainter, QBrush, QPen, QImage, QColor, QKeySequence, QWheelEvent, QResizeEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsPixmapItem, QGraphicsEllipseItem, QShortcut
@@ -11,8 +12,11 @@ from composite_icon import CompositeIcon
 from menu import ButtonPanel
 from alerts import AlertsManager
 from loaded_data import LoadedData
+from updater import Updater
+from loading_window import LoadingWindow
 
 class MapViewer(QGraphicsView):
+
     def __init__(self, scene: QGraphicsScene):
         super().__init__(scene)
         self.setRenderHint(QPainter.RenderHint.Antialiasing)
@@ -100,28 +104,50 @@ class MapViewer(QGraphicsView):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        
+        loading_window = LoadingWindow(self)
+        loading_window.show()
+        
+        loading_window.update_text('Checking for updates...', random.randrange(0,10), 100)
+        Updater.check_for_updates()
+        
+        loading_window.update_text('Loading map data...', random.randrange(20, 40), 100)
         LoadedData.init()
+        
+        loading_window.update_text('Creating window...', random.randrange(41, 50),100)
         self.setWindowTitle("Map Viewer")
         screen_geo = QApplication.primaryScreen().availableGeometry()
         self.setGeometry(screen_geo)
+        
+        loading_window.update_text('Creating alert manager...', random.randrange(51,55), 100)
         AlertsManager.init(self)
+        
+        loading_window.update_text('Loading keybinds...', random.randrange(56,60), 100)
         toggle_shortcut = QShortcut(QKeySequence(Qt.Key.Key_Tab), self)
         toggle_shortcut.activated.connect(self.toggle_panel)
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.images_directory = "images/map/official/high_res"
         self.tile_size = 256
+        
+        loading_window.update_text('Loading graphics...', random.randrange(61,65), 100)
         scene = QGraphicsScene(self)
         scene.setBackgroundBrush(QBrush(QColor("#111820")))
         if not os.path.exists('application_data/official_unofficial_ids.json'):
             generate_id_to_oid_mapping('data/unofficial/button_data.json','data/official/full/full_dataset.json', 'application_data/official_unofficial_ids.json')
         # Making this async actually makes it slower!!!
+        
+        loading_window.update_text('Positioning map tiles...', random.randrange(66,80), 100)
         for (x, y), pixmap in LoadedData.map_pixmaps.items():
             item = QGraphicsPixmapItem(pixmap)
             item.setPos(int(x * self.tile_size), int(y * self.tile_size))
             scene.addItem(item)
 
+        loading_window.update_text("Creating map...", random.randrange(81,85), 100)
         self.map_view = MapViewer(scene)
+        
+        loading_window.update_text("Loading buttons...", random.randrange(86, 99), 100)
         self.btn = ButtonPanel(self)
+        
         self.btn.setParent(self)
         self.btn.setVisible(False)
         container = QWidget()
@@ -130,7 +156,9 @@ class MainWindow(QMainWindow):
         layout.setSpacing(0)
         layout.addWidget(self.btn)
         layout.addWidget(self.map_view)
-
+        loading_window.update_text("Done!", 100, 100)
+        loading_window.deleteLater()
+        loading_window = None
         self.setCentralWidget(container)
 
     def toggle_panel(self):

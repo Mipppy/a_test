@@ -56,7 +56,6 @@ class ClickableIcon(QFrame):
         self.setLayout(layout)
 
     def mousePressEvent(self, event: QMouseEvent):
-        print(self.item_id)
         if event.button() == Qt.MouseButton.RightButton:
             if not self.selected:
                 self.callback(self.item_id, self)
