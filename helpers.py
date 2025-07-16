@@ -1,6 +1,6 @@
 from difflib import get_close_matches
 from PyQt5.QtCore import Qt, QPointF, QPoint
-from PyQt5.QtGui import QPixmap, QFontMetrics, QIcon
+from PyQt5.QtGui import QPixmap, QFontMetrics, QIcon, QImage, QColor
 from PyQt5.QtWidgets import (
     QLabel
 )
@@ -258,3 +258,42 @@ def get_pixmap_from_url(url: str) -> QPixmap | None:
             return None
     except Exception as e:
         return None
+
+def delete_single_color_or_transparent_images(directory="images/map/official/high_res", target_hex="#111820"):
+    target_color = QColor(target_hex).rgba()  
+
+    files = [f for f in os.listdir(directory) if f.endswith('.webp')]
+    deleted_files = []
+
+    for filename in files:
+        path = os.path.join(directory, filename)
+        image = QImage(path)
+        if image.isNull():
+            print(f"[warn] Could not load image: {filename}")
+            continue
+        
+        width = image.width()
+        height = image.height()
+
+        all_match = True
+        def qAlpha(pixel):
+            return (pixel >> 24) & 0xFF
+        for y in range(height):
+            for x in range(width):
+                pixel = image.pixel(x, y)
+                
+                alpha = qAlpha(pixel)
+                if alpha != 0 and pixel != target_color:
+                    all_match = False
+                    break
+            if not all_match:
+                break
+
+        if all_match:
+            try:
+                os.remove(path)
+                deleted_files.append(filename)
+            except Exception as e:
+                print(f"[error] Could not delete {filename}: {e}")
+
+    print(f"Deleted {len(deleted_files)} files that are fully {target_hex} or fully transparent: {deleted_files}")

@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt, QRectF, QTimer, QPointF
 from PyQt5.QtGui import QPixmap, QPainter, QBrush, QPen, QImage, QColor, QKeySequence, QWheelEvent, QResizeEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsPixmapItem, QGraphicsEllipseItem, QShortcut
 
-from helpers import original_pos_to_pyqt5, gimmie_data, generate_id_to_oid_mapping
+from helpers import original_pos_to_pyqt5, gimmie_data, generate_id_to_oid_mapping, delete_single_color_or_transparent_images
 from grouping import BasicGrouping
 from composite_icon import CompositeIcon
 from menu import ButtonPanel
@@ -114,7 +114,6 @@ class MainWindow(QMainWindow):
         scene.setBackgroundBrush(QBrush(QColor("#111820")))
         if not os.path.exists('application_data/official_unofficial_ids.json'):
             generate_id_to_oid_mapping('data/unofficial/button_data.json','data/official/full/full_dataset.json', 'application_data/official_unofficial_ids.json')
-
         # Making this async actually makes it slower!!!
         for (x, y), pixmap in LoadedData.map_pixmaps.items():
             item = QGraphicsPixmapItem(pixmap)
