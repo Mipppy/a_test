@@ -3,21 +3,22 @@ from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QPixmap, QFont, QIcon
 from PyQt5.QtWidgets import (
     QWidget, QGridLayout, QLabel, QScrollArea,
-    QVBoxLayout, QHBoxLayout, QFrame, QPushButton,
+    QVBoxLayout, QHBoxLayout, QPushButton,
     QToolButton, QMainWindow
 )
-from typing import List, Union, Tuple, Sequence
+from typing import List, Union, Tuple, Sequence, Optional
 
 from helpers import get_all_ids
 from menu_button import ClickableIcon
-
+from comment_card import CommentCard
 
 class ButtonPanel(QWidget):
     selected_ids: list[int] = []
-
+    instance: Optional['ButtonPanel'] = None 
     def __init__(self, parent: QMainWindow):
         super().__init__()
         self.window_view = parent
+        ButtonPanel.instance = self
         self.setWindowTitle("Control Panel")
         self.setFixedSize(400, 600)
 
@@ -36,11 +37,11 @@ class ButtonPanel(QWidget):
         for name, icon_path in buttons_info:
             btn = QToolButton()
             btn.setIcon(QIcon(icon_path))
-            btn.setToolButtonStyle(Qt.ToolButtonIconOnly)  # icon only, no text
+            btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)  
             btn.setCheckable(True)
             btn.setFixedSize(60, 60)
             btn.setIconSize(QSize(48, 48))  
-            btn.setAutoExclusive(True)  # Only one button checked at a time
+            btn.setAutoExclusive(True) 
             btn.clicked.connect(lambda checked, n=name: self.on_nav_clicked(n))
             self.navbar.addWidget(btn)
             self.nav_buttons[name] = btn
@@ -66,7 +67,19 @@ class ButtonPanel(QWidget):
 
         self.web_view = QWidget()
         web_layout = QVBoxLayout(self.web_view)
-        web_layout.addWidget(QLabel("<h2>Web View (empty)</h2>"))
+
+        self.web_scroll = QScrollArea()
+        self.web_scroll.setWidgetResizable(True)
+
+        self.web_content = QWidget()
+        self.web_layout_inside = QVBoxLayout(self.web_content)
+        self.web_layout_inside.setContentsMargins(8, 8, 8, 8)
+        self.web_layout_inside.setSpacing(12)
+
+        self.web_content.setLayout(self.web_layout_inside)
+        self.web_scroll.setWidget(self.web_content)
+
+        web_layout.addWidget(self.web_scroll)
         self.views["Web"] = self.web_view
 
         self.settings_view = QWidget()
@@ -103,7 +116,6 @@ class ButtonPanel(QWidget):
         section_widget = QWidget()
         section_layout = QVBoxLayout()
 
-        # Bold title label
         b_f = QFont()
         b_f.setBold(True)
         title_label = QLabel(group_name)
@@ -135,3 +147,25 @@ class ButtonPanel(QWidget):
     def scroll_to_group(self, group_idx: int) -> None:
         section: QWidget = self.section_widgets[group_idx]
         self.content_scroll_area.verticalScrollBar().setValue(section.y())
+        
+        
+    @classmethod
+    def add_comment_card(cls, image_path: str, comment: str, username: str, date: str, like_count: int = 0):
+        if cls.instance is None:
+            raise RuntimeError("ButtonPanel instance is not initialized.")
+        
+        card = CommentCard(image_path, comment, username, date, like_count)
+        cls.instance.web_layout_inside.addWidget(card)
+    
+    @classmethod
+    def clear_comment_cards(cls):
+        if cls.instance is None:
+            raise RuntimeError("ButtonPanel instance is not initialized.")
+        
+        layout = cls.instance.web_layout_inside
+        while layout.count():
+            item = layout.takeAt(0)
+            widget = item.widget()
+            if widget is not None:
+                widget.setParent(None)
+                widget.deleteLater()

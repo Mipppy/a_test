@@ -1,26 +1,13 @@
-from PyQt5.QtCore import Qt, QRectF, QPointF, QPoint, QSize, QTimer
-from PyQt5.QtGui import QPixmap, QPainter, QBrush, QPen, QImage, QColor, QFontMetrics, QFont, QMouseEvent
+from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtGui import QPixmap, QFont, QMouseEvent
 from PyQt5.QtWidgets import (
-    QApplication,
-    QMainWindow,
-    QGraphicsView,
-    QGraphicsScene,
     QFrame,
-    QGraphicsEllipseItem,
-    QGraphicsItemGroup,
     QLabel,
-    QProgressBar,
-    QWidget,
-    QGraphicsRectItem,
-    QGraphicsTextItem,
     QMenu,
     QAction,
     QVBoxLayout,
 )
-from typing import Dict, List, Union, Optional, Any, cast, Callable
-from collections import OrderedDict
-
-from grouping import BasicGrouping
+from typing import Callable
 
 class ClickableIcon(QFrame):
     _shared_menu = None
@@ -99,6 +86,7 @@ class ClickableIcon(QFrame):
                 "border: 1px solid lightgray; border-radius: 5px;")
 
     def find_obj_groups(self, num_of_groups: int = 50, distance=10, mark: bool = False):
+        from grouping import BasicGrouping
         groups = BasicGrouping.find_obj_group(
             self.item_id, distance=distance, num=num_of_groups, mark=mark
         )

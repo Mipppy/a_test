@@ -1,27 +1,12 @@
-from PyQt5.QtCore import Qt, QRectF, QPointF, QPoint, QSize
-from PyQt5.QtGui import QPixmap, QPainter, QBrush, QPen, QImage, QColor, QFontMetrics, QFont
+from PyQt5.QtCore import Qt, QPointF, QPoint
+from PyQt5.QtGui import QPixmap, QFontMetrics, QIcon
 from PyQt5.QtWidgets import (
-    QApplication,
-    QMainWindow,
-    QGraphicsView,
-    QGraphicsScene,
-    QGraphicsPixmapItem,
-    QGraphicsEllipseItem,
-    QGraphicsItemGroup,
-    QLabel,
-    QProgressBar,
-    QWidget,
-    QGraphicsRectItem,
-    QGraphicsTextItem
+    QLabel
 )
 import os
 import json
-import sys
-import time
-import typing
-import math
 from typing import Dict, List, Union, Optional, Any, cast
-from collections import OrderedDict
+import requests
 
 from loaded_data import LoadedData
 
@@ -127,18 +112,12 @@ def resize_font_to_fit(label: QLabel, text: str, max_width: int):
 from difflib import get_close_matches
 
 def generate_id_to_oid_mapping(dataset1_path: str, dataset2_path: str, output_path: str) -> None:
-    with open(dataset1_path, 'r', encoding='utf-8') as f1:
-        oid_to_name = json.load(f1)
 
-    name_to_oid = {name: oid for oid, name in oid_to_name.items() if isinstance(name, str)}
-
-    with open(dataset2_path, 'r', encoding='utf-8') as f2:
-        label_data = json.load(f2)
-        label_list = label_data.get("label_list", [])
+    name_to_oid = {name: oid for oid, name in LoadedData.unofficial_btn_data.items() if isinstance(name, str)}
 
     id_to_oid = {}
     unmatched_labels = []
-
+    label_list = LoadedData.official_dataset.get("label_list", [])
     for entry in label_list:
         if not isinstance(entry, dict):
             continue
@@ -197,41 +176,73 @@ def map_all_ids_by_xpos(
 ) -> Dict[int, int]:
     """
     Loops through all unique label_ids in dataset A, converts each to unofficial type using convert_id_or_oid,
-    and maps each A.id to B.id by sorting by x_pos and lng. Saves combined mapping to file.
+    and maps each A.id to B.id by sorting by x_pos and breaking ties by y_pos. Saves combined mapping to file.
     """
-    # Load datasets
     points_a = LoadedData.official_dataset.get("point_list", [])
-
-
     points_b = LoadedData.unofficial_dataset.get("data", [])
 
-    # Build mapping result
     full_mapping = {}
-    label_ids = sorted(set(p['label_id'] for p in points_a))
+    label_ids = sorted({p['label_id'] for p in points_a})
 
     for label_id in label_ids:
         converted = convert_id_or_oid(label_id)
-        if not converted:
-            print(f"[skip] Could not convert label_id {label_id}")
+        if not isinstance(converted, str):
             continue
+        converted = converted.replace('btn-', '')
 
         filtered_a = [p for p in points_a if p['label_id'] == label_id]
-        filtered_b = [r for r in points_b if len(r) > 1 and r[1] == converted]
-
+        filtered_b = [r for r in points_b if len(r) > 1 and r[1] == converted and r[2] == 2]
         if not filtered_a or not filtered_b:
-            print(f"[skip] No matches for label_id {label_id} → {converted} (A: {len(filtered_a)}, B: {len(filtered_b)})")
+            print(f"[skip] No matches for label_id {label_id} -> {converted} (A: {len(filtered_a)}, B: {len(filtered_b)})")
             continue
 
-        sorted_a = sorted(filtered_a, key=lambda obj: obj['x_pos'])
-        sorted_b = sorted(filtered_b, key=lambda arr: arr[4])  # lng
+        print(f"Mapping label_id={label_id} to {converted} with {len(filtered_a)} A items and {len(filtered_b)} B items")
 
-        for a_obj, b_arr in zip(sorted_a, sorted_b):
+        # Sort A by x_pos, y_pos
+        sorted_a = sorted(filtered_a, key=lambda obj: (obj['x_pos'], obj.get('y_pos', 0)))
+        # Sort B by lng (index 4)
+        sorted_b = sorted(filtered_b, key=lambda arr: arr[4])
+
+        if len(sorted_a) != len(sorted_b):
+            print(f"[warning] Length mismatch for label_id {label_id}: A={len(sorted_a)}, B={len(sorted_b)}")
+
+        for i, (a_obj, b_arr) in enumerate(zip(sorted_a, sorted_b)):
+            print(f"Mapping {i}: A.id={a_obj['id']} -> B.id={b_arr[0]} (x_pos={a_obj['x_pos']}, y_pos={a_obj.get('y_pos', 'n/a')}, lng={b_arr[4]})")
             full_mapping[a_obj['id']] = b_arr[0]
-
-        print(f"[ok] Mapped {min(len(sorted_a), len(sorted_b))} items (label_id: {label_id} → {converted})")
 
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(full_mapping, f, ensure_ascii=False, indent=2)
 
     print(f"\nTotal mapped: {len(full_mapping)}")
     return full_mapping
+
+
+def get_icon_from_url(url) -> QIcon:
+    try:
+        resp = requests.get(url)
+        resp.raise_for_status()
+        data = resp.content
+        pixmap = QPixmap()
+        pixmap.loadFromData(data)
+        return QIcon(pixmap)
+    except Exception as e:
+        print(f"Failed to load icon from URL {url}: {e}")
+        return None
+
+
+
+def get_pixmap_from_url(url: str) -> QPixmap | None:
+    try:
+        if not url:
+            return None
+        response = requests.get(url)
+        response.raise_for_status()
+        image_data = response.content
+        pixmap = QPixmap()
+        if pixmap.loadFromData(image_data):
+            return pixmap
+        else:
+            return None
+    except Exception as e:
+        return None
+

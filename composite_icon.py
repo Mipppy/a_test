@@ -1,26 +1,16 @@
-from PyQt5.QtCore import Qt, QRectF, QPointF, QPoint, QSize
-from PyQt5.QtGui import QPixmap, QPainter, QBrush, QPen, QImage, QColor, QFontMetrics, QFont
+from PyQt5.QtCore import Qt, QPointF, QSize
+from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtWidgets import (
-    QApplication,
-    QMainWindow,
-    QGraphicsView,
-    QGraphicsScene,
     QGraphicsPixmapItem,
-    QGraphicsEllipseItem,
     QGraphicsItemGroup,
-    QLabel,
-    QProgressBar,
-    QWidget,
-    QGraphicsRectItem,
-    QGraphicsTextItem
+    QGraphicsSceneMouseEvent
 )
-from typing import Dict, List, Union, Optional, Any, cast
 from collections import OrderedDict
-import requests
 
-from helpers import reverse_linear_mapping, transform_x_to_y, convert_id_or_oid
+from helpers import reverse_linear_mapping
 from loaded_data import LoadedData
-
+from webhandler import WebHandler
+from menu import ButtonPanel
 class CompositeIcon(QGraphicsItemGroup):
     _global_z_counter = 1
 
@@ -69,16 +59,16 @@ class CompositeIcon(QGraphicsItemGroup):
         self.base_width = base_pixmap.width()
         self.base_height = base_pixmap.height()
         self.item_data = item_data
-        print(f"Base ID:{self.item_data['id']}")
-        self.unofficial_id = LoadedData.official_id_to_unofficial_id.get(self.item_data['id'])
-        print(f"Unofficial ID: {self.unofficial_id}")
         self.min_scale = 0.02
         self.max_scale = 1.75
         self.current_scale = scale_factor
         self.setTransformOriginPoint(self.anchor_offset)
         self.setScale(scale_factor)
         self.zoom_level = zoom_level
-
+        self.label_id = self.item_data['label_id']
+        self._id = self.item_data['label_id']
+        self.oid = LoadedData.id_oid_dataset.get(str(self.label_id))
+        self.uid = LoadedData.official_id_to_unofficial_id.get(str(self._id))
         self.logical_anchor_pos = position
         self.update_position()
 
@@ -89,16 +79,17 @@ class CompositeIcon(QGraphicsItemGroup):
         self.setPos(self.logical_anchor_pos - self.anchor_offset +
                     QPointF(adjusted_x / 2, adjusted_x))
 
-    def scale_adjust_zoom(self, zoom_level):
+    def scale_adjust_zoom(self, zoom_level:float):
         scale_factor = max(self.min_scale, min(
             0.5 / (zoom_level), self.max_scale))
         self.setScale(scale_factor)
         self.zoom_level = zoom_level
         self.update_position()
 
-    def mousePressEvent(self, event):
+    def mousePressEvent(self, event:QGraphicsSceneMouseEvent):
         self.setSelected(True)
-        print(self.unofficial_id)
+        ButtonPanel.clear_comment_cards()
+        WebHandler.load_unofficial_data(self.item_data['id'], self.item_data['label_id'])
         CompositeIcon.raise_to_top(self)
         super().mousePressEvent(event)
 

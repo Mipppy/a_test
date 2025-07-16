@@ -1,12 +1,11 @@
 from PyQt5.QtWidgets import QWidget, QHBoxLayout
 import sys
 import os
-import math
-from PyQt5.QtCore import Qt, QRectF, QTimer, QEvent, QPoint, QPointF
+from PyQt5.QtCore import Qt, QRectF, QTimer, QPointF
 from PyQt5.QtGui import QPixmap, QPainter, QBrush, QPen, QImage, QColor, QKeySequence, QWheelEvent, QResizeEvent
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsPixmapItem, QGraphicsEllipseItem, QShortcut, QMenu, QAction
+from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsPixmapItem, QGraphicsEllipseItem, QShortcut
 
-from helpers import original_pos_to_pyqt5, gimmie_data, get_all_ids, generate_id_to_oid_mapping
+from helpers import original_pos_to_pyqt5, gimmie_data, generate_id_to_oid_mapping
 from grouping import BasicGrouping
 from composite_icon import CompositeIcon
 from menu import ButtonPanel

@@ -1,21 +1,9 @@
-from PyQt5.QtCore import Qt, QRectF, QPointF, QPoint, QSize
-from PyQt5.QtGui import QPixmap, QPainter, QBrush, QPen, QImage, QColor, QFontMetrics, QFont
+from PyQt5.QtCore import Qt, QRectF
+from PyQt5.QtGui import QPainter, QColor, QFont
 from PyQt5.QtWidgets import (
-    QApplication,
-    QMainWindow,
-    QGraphicsView,
-    QGraphicsScene,
-    QGraphicsPixmapItem,
-    QGraphicsEllipseItem,
-    QGraphicsItemGroup,
-    QLabel,
     QProgressBar,
     QWidget,
-    QGraphicsRectItem,
-    QGraphicsTextItem
 )
-from typing import Dict, List, Union, Optional, Any, cast
-from collections import OrderedDict
 
 
 class CustomRoundedProgressBar(QProgressBar):
