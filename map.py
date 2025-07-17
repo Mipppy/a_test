@@ -30,8 +30,8 @@ class MapViewer(QGraphicsView):
         self.max_zoom = 3.0
         self.current_zoom = 1.0
         self.composite_icons = {}
-        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.get_new_ids)
         self.timer.start(500)

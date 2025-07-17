@@ -86,11 +86,16 @@ class ClickableIcon(QFrame):
     def set_selected(self, selected: bool):
         self.selected = selected
         if selected:
-            self.setStyleSheet(
-                "border: 2px solid green; background-color: #c7f0c4; border-radius: 5px; color:rgba(0, 0, 0, 255);")
+            self.setStyleSheet("""
+                border: 2px solid green; 
+                background-color:  #31a207;
+                border-radius: 5px;
+                color:rgba(200, 200, 200, 200);""")
         else:
-            self.setStyleSheet(
-                "border: 1px solid rgba(200, 200, 200, 255); border-radius: 5px; color:rgba(200, 200, 200, 255); ")
+            self.setStyleSheet("""
+                border: 1px solid rgba(200, 200, 200, 255);
+                border-radius: 5px; 
+                color:rgba(200, 200, 200, 255); """)
 
     def find_obj_groups(self, num_of_groups: int = 50, distance=10, mark: bool = False):
         from grouping import BasicGrouping

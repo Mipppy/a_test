@@ -62,6 +62,7 @@ class ButtonPanel(QWidget):
 
         for name, icon_path in buttons_info:
             btn = QToolButton()
+            btn.setObjectName('NavButton')
             btn.setIcon(QIcon(icon_path))
             btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
             btn.setCheckable(True)
@@ -93,6 +94,7 @@ class ButtonPanel(QWidget):
         self.views["Location Data"] = self.location_view
 
         self.web_view = QWidget()
+        self.web_view.setObjectName('WebView')
         web_layout = QVBoxLayout(self.web_view)
 
         self.web_scroll = QScrollArea()
@@ -100,6 +102,7 @@ class ButtonPanel(QWidget):
 
         self.web_content = QWidget()
         self.web_layout_inside = QVBoxLayout(self.web_content)
+        self.web_content.setObjectName('WebContent')
         self.web_layout_inside.setContentsMargins(8, 8, 8, 8)
         self.web_layout_inside.setSpacing(12)
 
@@ -126,7 +129,7 @@ class ButtonPanel(QWidget):
             Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.web_scroll.setHorizontalScrollBarPolicy(
             Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        self.content_scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.content_scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         for idx, (key, value) in enumerate(self.ids.items()):
             menu_button = QPushButton(key)
             menu_button.setObjectName('LocationMenuButton')
@@ -152,7 +155,6 @@ class ButtonPanel(QWidget):
                 height: 0px;
             }  
             #NavbarWidget {
-                background-color: rgba(40, 40, 40, 200);  
             }
             #LocationMenuButton {
                 background-color: rgba(60, 60, 60, 255);
@@ -167,15 +169,22 @@ class ButtonPanel(QWidget):
                 background-color: rgba(60, 60, 60, 255);
                 border: 1px solid white;  
             }
-            #ContentContainer {
-                background-color: rgba(60, 60, 60, 255);
-            }
             QScrollBar:vertical, QScrollBar:horizontal {
                 width: 0px;
                 height: 0px;
                 background: transparent;
             }
-
+            #NavButton {
+                background-color: rgba(60, 60, 60, 255);
+                border: 1px solid black;
+            }
+            #NavButton:hover {
+                background-color: rgba(40, 40, 40, 255);
+                border: 1px solid white;
+            }
+            #WebView, #WebContent, #ContentContainer {
+                background-color: rgba(60, 60, 60, 255);
+            }
         """)
 
     def on_nav_clicked(self, name: str):
