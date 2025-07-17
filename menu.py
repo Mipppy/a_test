@@ -24,8 +24,6 @@ class ButtonPanel(QWidget):
         self.window_view = parent
         ButtonPanel.instance = self
         self.setWindowTitle("Control Panel")
-        print(self.window_view.height())
-        self.setFixedHeight(self.window_view.height())
         self.setSizePolicy(QSizePolicy.Policy.Preferred,
                            QSizePolicy.Policy.Expanding)
         # self.setStyleSheet("""
@@ -105,7 +103,6 @@ class ButtonPanel(QWidget):
         self.web_content.setObjectName('WebContent')
         self.web_layout_inside.setContentsMargins(8, 8, 8, 8)
         self.web_layout_inside.setSpacing(12)
-
         self.web_content.setLayout(self.web_layout_inside)
         self.web_scroll.setWidget(self.web_content)
 
