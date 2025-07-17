@@ -30,6 +30,8 @@ class MapViewer(QGraphicsView):
         self.max_zoom = 3.0
         self.current_zoom = 1.0
         self.composite_icons = {}
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.get_new_ids)
         self.timer.start(500)
@@ -147,22 +149,27 @@ class MainWindow(QMainWindow):
         
         loading_window.update_text("Loading buttons...", random.randrange(86, 99), 100)
         self.btn = ButtonPanel(self)
-        
-        self.btn.setParent(self)
-        self.btn.setVisible(False)
+        self.btn.setParent(self)  
+        self.btn.setFixedSize(430, self.height() - 25)
+        self.btn.move(0, 0)  
+        self.btn.hide()
+
         container = QWidget()
         layout = QHBoxLayout(container)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
-        layout.addWidget(self.btn)
         layout.addWidget(self.map_view)
         loading_window.update_text("Done!", 100, 100)
         loading_window.deleteLater()
         loading_window = None
         self.setCentralWidget(container)
+        self.setStyleSheet("""
+                           
+        """)
 
     def toggle_panel(self):
         self.btn.setVisible(not self.btn.isVisible())
+        self.btn.raise_()
 
     def resizeEvent(self, event : QResizeEvent):
         super().resizeEvent(event)

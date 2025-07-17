@@ -12,7 +12,7 @@ from async_pixmap_loader import PixmapLoader
 class CommentCard(QWidget):
     def __init__(self, image_path: str, comment: str, username: str, date: str, like_count: int = 0, parent=None):
         super().__init__(parent)
-
+        self.loader_thread = None
         main_layout = QVBoxLayout()
         main_layout.setContentsMargins(8, 8, 8, 8)
         main_layout.setSpacing(8)
@@ -22,31 +22,34 @@ class CommentCard(QWidget):
         self.image_label.setFixedHeight(200)
         self.image_label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         main_layout.addWidget(self.image_label)
-
+        
         self.load_pixmap_async(image_path)
 
 
         comment_label = QLabel(comment)
         comment_label.setWordWrap(True)
         comment_label.setFont(QFont("Arial", 10))
+        comment_label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         main_layout.addWidget(comment_label)
 
         actions_layout = QHBoxLayout()
 
         self.like_btn = QPushButton()
-        self.like_btn.setIcon(LoadedData.qicon_cache.get('thumbs_up.png'))
+        self.like_btn.setIcon(LoadedData.qicon_cache.get('thumbs_up_dark.png'))
         self.like_btn.setIconSize(QSize(20, 20))
         self.like_btn.setFlat(True)
         self.like_btn.setToolTip("Like")
         self.like_count_label = QLabel(str(like_count))
+        self.like_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         actions_layout.addWidget(self.like_btn)
         actions_layout.addWidget(self.like_count_label)
 
         self.dislike_btn = QPushButton()
-        self.dislike_btn.setIcon(LoadedData.qicon_cache.get('thumbs_down.png'))
+        self.dislike_btn.setIcon(LoadedData.qicon_cache.get('thumbs_down_dark.png'))
         self.dislike_btn.setIconSize(QSize(20, 20))
         self.dislike_btn.setFlat(True)
         self.dislike_btn.setToolTip("Dislike")
+        self.dislike_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         actions_layout.addWidget(self.dislike_btn)
 
         actions_layout.addStretch()
@@ -58,19 +61,29 @@ class CommentCard(QWidget):
         main_layout.addLayout(actions_layout)
 
     def load_pixmap_async(self, url: str):
-        self.thread = QThread()
-        self.loader = PixmapLoader(url)
-        self.loader.moveToThread(self.thread)
+        if self.loader_thread and self.loader_thread.isRunning():
+            self.loader_thread.quit()
+            self.loader_thread.wait()
 
-        self.thread.started.connect(self.loader.run)
+        self.loader_thread = QThread(self)  # parented to widget
+        self.loader = PixmapLoader(url)
+        self.loader.moveToThread(self.loader_thread)
+
+        self.loader_thread.started.connect(self.loader.run)
         self.loader.finished.connect(self.on_pixmap_loaded)
         self.loader.error.connect(self.on_pixmap_error)
-        self.loader.finished.connect(self.thread.quit)
+
+        self.loader.finished.connect(self.loader_thread.quit)
         self.loader.finished.connect(self.loader.deleteLater)
-        self.thread.finished.connect(self.thread.deleteLater)
+        self.loader_thread.finished.connect(self.loader_thread.deleteLater)
 
-        self.thread.start()
-
+        self.loader_thread.start()
+        
+    def closeEvent(self, event):
+        if hasattr(self, "thread") and self.thread.isRunning():
+            self.thread.quit()
+            self.thread.wait()
+        super().closeEvent(event)
     def on_pixmap_loaded(self, pixmap: QPixmap):
         if not pixmap.isNull():
             self.image_label.setPixmap(pixmap.scaledToHeight(

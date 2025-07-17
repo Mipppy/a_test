@@ -31,8 +31,16 @@ class ClickableIcon(QFrame):
         self.map_view = parent
         self.setFrameShape(QFrame.Shape.StyledPanel)
         self.setFixedSize(70, 85)
-        self.setStyleSheet("border: 1px solid lightgray; border-radius: 5px;")
-
+        self.setStyleSheet("""
+            QFrame {
+                border: 1px solid rgba(200, 200, 200, 100);
+                border-radius: 5px;
+            }
+            QFrame:hover {
+                border: 1px solid rgba(255, 255, 255, 180);
+                background-color: rgba(255, 255, 255, 10);
+            }
+        """)
         self._init_shared_menu()
 
         layout = QVBoxLayout()
@@ -49,7 +57,7 @@ class ClickableIcon(QFrame):
         text_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         font = QFont()
-        font.setPointSize(8)
+        font.setPointSize(6)
         text_label.setFont(font)
 
         layout.addWidget(text_label)
@@ -79,10 +87,10 @@ class ClickableIcon(QFrame):
         self.selected = selected
         if selected:
             self.setStyleSheet(
-                "border: 2px solid green; background-color: #c7f0c4; border-radius: 5px;")
+                "border: 2px solid green; background-color: #c7f0c4; border-radius: 5px; color:rgba(0, 0, 0, 255);")
         else:
             self.setStyleSheet(
-                "border: 1px solid lightgray; border-radius: 5px;")
+                "border: 1px solid rgba(200, 200, 200, 255); border-radius: 5px; color:rgba(200, 200, 200, 255); ")
 
     def find_obj_groups(self, num_of_groups: int = 50, distance=10, mark: bool = False):
         from grouping import BasicGrouping

@@ -16,8 +16,8 @@ class LoadedData:
     all_official_ids: dict = None
 
     qicon_paths: List[str] = [
-        'images/resources/application/thumbs_up.png',
-        'images/resources/application/thumbs_down.png'
+        'images/resources/application/thumbs_up_dark.png',
+        'images/resources/application/thumbs_down_dark.png'
     ]
     qicon_cache: Dict[str, QIcon] = {}
 

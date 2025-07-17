@@ -41,7 +41,6 @@ class LoadedUnofficialData:
 
             if image:
                 image_path = self.image_loading_url.rstrip('/') + image
-                print(image_path)
             else:
                 image_path = None 
 
