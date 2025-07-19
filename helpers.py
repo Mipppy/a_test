@@ -61,7 +61,7 @@ def get_all_ids() -> Dict[str, List[List[Union[int, str]]]]:
     for filename in os.listdir('data/official/'):
         if filename.endswith('.json') and 'full_dataset' not in filename:
             file_path = os.path.join('data/official/', filename)
-            with open(file_path, 'r') as file:
+            with open(file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
             full_data[data['name']] = [[_id['id'], _id['name']]
                                        for _id in data['data']['label_list']]
