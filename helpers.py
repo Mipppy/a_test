@@ -1,6 +1,6 @@
 from difflib import get_close_matches
 from PyQt5.QtCore import Qt, QPointF, QPoint
-from PyQt5.QtGui import QPixmap, QFontMetrics, QIcon, QImage, QColor
+from PyQt5.QtGui import QPixmap, QFontMetrics, QIcon, QImage, QColor, QPainter, QPainterPath
 from PyQt5.QtWidgets import (
     QLabel
 )
@@ -297,3 +297,23 @@ def delete_single_color_or_transparent_images(directory="images/map/official/hig
                 print(f"[error] Could not delete {filename}: {e}")
 
     print(f"Deleted {len(deleted_files)} files that are fully {target_hex} or fully transparent: {deleted_files}")
+
+
+def circular_crop_pixmap(pixmap: QPixmap) -> QPixmap:
+    size = min(pixmap.width(), pixmap.height())
+    cropped = QPixmap(size, size)
+    cropped.fill(Qt.transparent)
+
+    painter = QPainter(cropped)
+    painter.setRenderHint(QPainter.Antialiasing)
+    
+    path = QPainterPath()
+    path.addEllipse(0, 0, size, size)
+    painter.setClipPath(path)
+
+    offset_x = (size - pixmap.width()) // 2
+    offset_y = (size - pixmap.height()) // 2
+    painter.drawPixmap(offset_x, offset_y, pixmap)
+
+    painter.end()
+    return cropped

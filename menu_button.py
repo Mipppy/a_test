@@ -1,11 +1,12 @@
 from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtGui import QPixmap, QFont, QMouseEvent
+from PyQt5.QtGui import QPixmap, QFont, QMouseEvent, QFontMetrics
 from PyQt5.QtWidgets import (
     QFrame,
     QLabel,
     QMenu,
     QAction,
     QVBoxLayout,
+    QSizePolicy
 )
 from typing import Callable
 
@@ -30,7 +31,6 @@ class ClickableIcon(QFrame):
         self.selected = False
         self.map_view = parent
         self.setFrameShape(QFrame.Shape.StyledPanel)
-        self.setFixedSize(70, 85)
         self.setStyleSheet("""
             QFrame {
                 border: 1px solid rgba(200, 200, 200, 100);
@@ -44,22 +44,40 @@ class ClickableIcon(QFrame):
         self._init_shared_menu()
 
         layout = QVBoxLayout()
-        layout.setContentsMargins(2, 2, 2, 2)
-        layout.setSpacing(3)
-
+        layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.setSpacing(10)
+        layout.setContentsMargins(6, 6, 6, 6)
         icon_label = QLabel()
-        icon_label.setPixmap(pixmap)
+        icon_label.setPixmap(pixmap.scaled(64, 64, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         icon_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(icon_label)
+        icon_label.setScaledContents(False)  
+        icon_label.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        icon_label.setMaximumSize(64, 64)
+        layout.addWidget(icon_label, alignment=Qt.AlignCenter)
 
         text_label = QLabel(label_text)
         text_label.setWordWrap(True)
         text_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
+        text_label.setMaximumWidth(120)
+        text_label.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
+        text_label.setMaximumWidth(120) 
         font = QFont()
-        font.setPointSize(6)
+        font.setPointSize(15)
         text_label.setFont(font)
 
+        max_width = 120
+        max_height = 200
+
+        metrics = QFontMetrics(font)
+
+        while font.pointSize() > 6:
+            rect = metrics.boundingRect(0, 0, max_width, max_height, Qt.TextWordWrap, label_text)
+            if rect.height() <= max_height:
+                break
+            font.setPointSize(font.pointSize() - 1)
+            metrics = QFontMetrics(font)
+        text_label.setMaximumHeight(150)
+        text_label.setFont(font)
         layout.addWidget(text_label)
         self.setLayout(layout)
 

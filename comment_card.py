@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import (
     QWidget, QLabel, QPushButton, QHBoxLayout, QVBoxLayout, QSizePolicy
 )
-from PyQt5.QtGui import QFont, QPixmap
+from PyQt5.QtGui import QFont, QPixmap, QCursor, QTextCursor
 from PyQt5.QtCore import Qt, QSize, QThread
 
 from loaded_data import LoadedData
@@ -12,16 +12,16 @@ from async_pixmap_loader import PixmapLoader
 class CommentCard(QWidget):
     def __init__(self, image_path: str, comment: str, username: str, date: str, like_count: int = 0, parent=None):
         super().__init__(parent)
-        self.setFixedWidth(int(self.width() / 1.75))
+        self.setFixedWidth(self.width())
         self.loader_thread = None
         main_layout = QVBoxLayout()
-        main_layout.setContentsMargins(8, 8, 8, 8)
-        main_layout.setSpacing(8)
+        main_layout.setContentsMargins(0,0,0,0)
+        main_layout.setSpacing(0)
         self.setLayout(main_layout)
 
         self.image_label = QLabel()
-        self.image_label.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        self.image_label.setFixedSize(int(self.width()), 200)
+        self.image_label.setFixedHeight(200)
+        self.image_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         main_layout.addWidget(self.image_label)
         self.image_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
         self.load_pixmap_async(image_path)
@@ -29,11 +29,17 @@ class CommentCard(QWidget):
 
         comment_label = QLabel(comment)
         comment_label.setWordWrap(True)
-        comment_label.setFixedWidth(int(self.width() - 8))
         comment_label.setFont(QFont("Arial", 10))
-        comment_label.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
-        main_layout.addWidget(comment_label)
+        comment_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        comment_label.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignLeft)
 
+        comment_label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
+
+        comment_label.setCursor(Qt.CursorShape.IBeamCursor)
+
+        comment_label.setStyleSheet("padding: 4px 50px 4px 4px;")
+
+        main_layout.addWidget(comment_label)
         actions_layout = QHBoxLayout()
 
         self.like_btn = QPushButton()
@@ -82,31 +88,33 @@ class CommentCard(QWidget):
         self.loader_thread.start()
         
     def closeEvent(self, event):
-        if hasattr(self, "thread") and self.thread.isRunning():
-            self.thread.quit()
-            self.thread.wait()
+        if hasattr(self, "loader_thread"):
+            if self.loader_thread.isRunning():
+                self.loader_thread.quit()
+                self.loader_thread.wait()
         super().closeEvent(event)
         
     def on_pixmap_loaded(self, pixmap: QPixmap):
         if not pixmap.isNull():
+            self.image_label.setVisible(True)
             label_size = self.image_label.size()
             pixmap_size = pixmap.size()
 
             if pixmap_size.width() > label_size.width() or pixmap_size.height() > label_size.height():
-                # Scale down if too big (preserve aspect ratio)
                 scaled_pixmap = pixmap.scaled(
                     label_size,
                     Qt.AspectRatioMode.KeepAspectRatio,
                     Qt.TransformationMode.SmoothTransformation
                 )
             else:
-                # Leave as-is if already smaller than label
                 scaled_pixmap = pixmap
 
             self.image_label.setPixmap(scaled_pixmap)
             self.image_label.setStyleSheet("border-radius: 8px; background-color: rgba(0, 0, 0, 0.06);")
         else:
+            self.image_label.clear()  
             self.image_label.setVisible(False)
+
     
     def on_pixmap_error(self, msg: str):
         print(f"Image load error: {msg}")

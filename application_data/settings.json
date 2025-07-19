@@ -1,36 +1,36 @@
 {
-    "settings": {
-        "save_obj_selections": {
-            "name": "Save Selections",
-            "default": true,
-            "value": false,
-            "menu_option": "checkbox",
-            "data_type": "bool",
-            "description": "Saves what objects are selected between app loads."
-        },
-        "grouping_threshold": {
-            "name": "Grouping Threshold",
-            "default": 30.0,
-            "value": 30.0,
-            "menu_option": "text",
-            "data_type": "float",
-            "description": "The distance in which two objects will be classified as groups."
-        },
-        "text_color":{  
-            "name": "Text Color",
-            "default": "rgba(200, 200, 200, 255)",
-            "value": "rgba(200, 200, 200, 255)",
-            "menu_option": "color",
-            "data_type": "color",
-            "description": "The color text will use in the user interface."
-        },
-        "background_color" : {
-            "name": "Background Color",
-            "default": "rgba(60, 60, 60, 255)",
-            "value": "rgba(60, 60, 60, 255)",
-            "menu_option": "color",
-            "data_type": "color",
-            "description": "The color the background will use in the user interface."
-        }
+    "save_obj_selections": {
+        "name": "Save Selections",
+        "default": true,
+        "value": true,
+        "menu_option": "checkbox",
+        "data_type": "bool",
+        "description": "Saves what objects are selected between app loads."
+    },
+    "grouping_threshold": {
+        "name": "Grouping Threshold",
+        "default": 30.0,
+        "value": 30.500000000000007,
+        "min": 1.0,
+        "max": 1000.0,
+        "menu_option": "text",
+        "data_type": "float",
+        "description": "The distance in which two objects will be classified as groups."
+    },
+    "text_color": {
+        "name": "Text Color",
+        "default": "rgba(200, 200, 200, 255)",
+        "value": "rgba(200, 200, 200, 255)",
+        "menu_option": "color",
+        "data_type": "color",
+        "description": "The color text will use in the user interface."
+    },
+    "background_color": {
+        "name": "Background Color",
+        "default": "rgba(60, 60, 60, 255)",
+        "value": "rgba(60, 60, 60, 255)",
+        "menu_option": "color",
+        "data_type": "color",
+        "description": "The color the background will use in the user interface."
     }
 }

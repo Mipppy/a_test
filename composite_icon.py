@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QPointF, QSize
-from PyQt5.QtGui import QPixmap, QImage
+from PyQt5.QtGui import QPixmap, QImage,QPainter, QPainterPath
 from PyQt5.QtWidgets import (
     QGraphicsPixmapItem,
     QGraphicsItemGroup,
@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import (
 )
 from collections import OrderedDict
 
-from helpers import reverse_linear_mapping
+from helpers import reverse_linear_mapping, circular_crop_pixmap
 from loaded_data import LoadedData
 from webhandler import WebHandler
 from menu import ButtonPanel
@@ -42,9 +42,13 @@ class CompositeIcon(QGraphicsItemGroup):
         self.base_item = QGraphicsPixmapItem(base_pixmap)
         self.addToGroup(self.base_item)
 
+
+
         overlay_size = QSize(int(size * 0.65), int(size * 0.65))
         overlay_pixmap = ImageCacheManager.get_overlay_pixmap(
             overlay_image_path, overlay_size)
+
+        overlay_pixmap = circular_crop_pixmap(overlay_pixmap)
 
         self.overlay_item = QGraphicsPixmapItem(overlay_pixmap)
         self.overlay_item.setParentItem(self.base_item)

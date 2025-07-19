@@ -4,7 +4,7 @@ import os
 import random
 from PyQt5.QtCore import Qt, QRectF, QTimer, QPointF
 from PyQt5.QtGui import QPixmap, QPainter, QBrush, QPen, QImage, QColor, QKeySequence, QWheelEvent, QResizeEvent
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsPixmapItem, QGraphicsEllipseItem, QShortcut
+from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsPixmapItem, QGraphicsEllipseItem, QShortcut, QProxyStyle
 
 from helpers import original_pos_to_pyqt5, gimmie_data, generate_id_to_oid_mapping, delete_single_color_or_transparent_images
 from grouping import BasicGrouping
@@ -14,6 +14,7 @@ from alerts import AlertsManager
 from loaded_data import LoadedData
 from updater import Updater
 from loading_window import LoadingWindow
+from settings import SettingsManager
 
 class MapViewer(QGraphicsView):
 
@@ -113,7 +114,17 @@ class MainWindow(QMainWindow):
         loading_window.update_text('Checking for updates...', random.randrange(0,10), 100)
         Updater.check_for_updates()
         
-        loading_window.update_text('Loading map data...', random.randrange(20, 40), 100)
+        loading_window.update_text("Loading settings...", random.randrange(11,16), 100)
+        SettingsManager.init('application_data/settings.json')
+        class InstantTooltip(QProxyStyle):
+            def styleHint(self, hint, option=None, widget=None, returnData=None):
+                from PyQt5.QtWidgets import QStyle
+                if hint == QStyle.StyleHint.SH_ToolTip_WakeUpDelay:
+                    return 0 
+                return super().styleHint(hint, option, widget, returnData)
+        QApplication.setStyle(InstantTooltip(app.style()))
+            
+        loading_window.update_text('Loading map data...', random.randrange(17, 40), 100)
         LoadedData.init()
         
         loading_window.update_text('Creating window...', random.randrange(41, 50),100)
@@ -136,8 +147,8 @@ class MainWindow(QMainWindow):
         scene.setBackgroundBrush(QBrush(QColor("#111820")))
         if not os.path.exists('application_data/official_unofficial_ids.json'):
             generate_id_to_oid_mapping('data/unofficial/button_data.json','data/official/full/full_dataset.json', 'application_data/official_unofficial_ids.json')
-        # Making this async actually makes it slower!!!
         
+        # Rendering map tiles async actually makes it slower!!!
         loading_window.update_text('Positioning map tiles...', random.randrange(66,80), 100)
         for (x, y), pixmap in LoadedData.map_pixmaps.items():
             item = QGraphicsPixmapItem(pixmap)
@@ -150,7 +161,7 @@ class MainWindow(QMainWindow):
         loading_window.update_text("Loading buttons...", random.randrange(86, 99), 100)
         self.btn = ButtonPanel(self)
         self.btn.setParent(self)  
-        self.btn.setFixedSize(430, self.height() - 25)
+        self.btn.setFixedSize(int(self.width() * 0.25), int(self.height() - 25))
         self.btn.move(0, 0)  
         self.btn.hide()
 

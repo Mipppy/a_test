@@ -12,7 +12,7 @@ from helpers import get_all_ids
 from menu_button import ClickableIcon
 from comment_card import CommentCard
 from loaded_data import LoadedData
-
+from settings import SettingsManager
 
 class ButtonPanel(QWidget):
     selected_ids: list[int] = []
@@ -75,6 +75,8 @@ class ButtonPanel(QWidget):
 
         self.views = {}
 
+
+
         self.location_view = QWidget()
         location_layout = QHBoxLayout(self.location_view)
 
@@ -90,6 +92,9 @@ class ButtonPanel(QWidget):
         location_layout.addWidget(self.content_scroll_area, 3)
 
         self.views["Location Data"] = self.location_view
+
+
+
 
         self.web_view = QWidget()
         self.web_view.setObjectName('WebView')
@@ -109,9 +114,16 @@ class ButtonPanel(QWidget):
         web_layout.addWidget(self.web_scroll)
         self.views["Web"] = self.web_view
 
+
+
+
         self.settings_view = QWidget()
+        self.settings_view.setObjectName('SettingsView')
         settings_layout = QVBoxLayout(self.settings_view)
-        settings_layout.addWidget(QLabel("<h2>Settings View (empty)</h2>"))
+        
+        for setting_widget in SettingsManager.generate_ui():
+            settings_layout.addWidget(setting_widget)
+
         self.views["Settings"] = self.settings_view
 
         for view in self.views.values():
@@ -120,6 +132,8 @@ class ButtonPanel(QWidget):
 
         self.location_view.show()
 
+
+
         self.ids = LoadedData.all_official_ids
         self.section_widgets = {}
         self.content_scroll_area.setHorizontalScrollBarPolicy(
@@ -127,6 +141,8 @@ class ButtonPanel(QWidget):
         self.web_scroll.setHorizontalScrollBarPolicy(
             Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.content_scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        
+        
         for idx, (key, value) in enumerate(self.ids.items()):
             menu_button = QPushButton(key)
             menu_button.setObjectName('LocationMenuButton')
@@ -138,6 +154,8 @@ class ButtonPanel(QWidget):
             section = self.create_group_section(key, value)
             self.section_widgets[idx] = section
             self.content_layout_inside.addWidget(section)
+            
+            
         self.setStyleSheet("""
             QWidget {
                 color: rgba(255, 255, 255, 200);
@@ -151,8 +169,6 @@ class ButtonPanel(QWidget):
             QScrollBar:horizontal {
                 height: 0px;
             }  
-            #NavbarWidget {
-            }
             #LocationMenuButton {
                 background-color: rgba(60, 60, 60, 255);
                 border: 1px solid black;
@@ -179,10 +195,11 @@ class ButtonPanel(QWidget):
                 background-color: rgba(40, 40, 40, 255);
                 border: 1px solid white;
             }
-            #WebView, #WebContent, #ContentContainer {
+            #WebView, #WebContent, #ContentContainer, #SettingsView {
                 background-color: rgba(60, 60, 60, 255);
             }
         """)
+
 
     def on_nav_clicked(self, name: str):
         for view in self.views.values():
@@ -207,16 +224,24 @@ class ButtonPanel(QWidget):
         section_layout.addWidget(title_label)
 
         grid_layout = QGridLayout()
-        grid_layout.setSpacing(5)
-
+        grid_layout.setSpacing(10)
         for i, item in enumerate(data):
             row, col = divmod(i, 3)
-            pixmap = LoadedData.btn_pixmaps.get(int(item[0])).scaled(
-                30, 30, Qt.AspectRatioMode.KeepAspectRatio)
-            button = ClickableIcon(
-                item[0], item[1], pixmap, self.toggle_selection, parent=self.window_view.map_view)
-            grid_layout.addWidget(button, row, col)
 
+            pixmap = LoadedData.btn_pixmaps.get(int(item[0]))
+            button = ClickableIcon(
+                item[0], item[1],
+                pixmap,
+                self.toggle_selection,
+                parent=self.window_view.map_view
+            )
+            button.setMinimumSize(80, 80) 
+            button.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+
+            grid_layout.addWidget(button, row, col)
+            grid_layout.setRowStretch(row, 1)     
+            grid_layout.setColumnStretch(col, 1)
+            grid_layout.addWidget(button, row, col)
         section_layout.addLayout(grid_layout)
         section_widget.setLayout(section_layout)
         return section_widget
@@ -251,7 +276,7 @@ class ButtonPanel(QWidget):
             item = layout.takeAt(0)
             widget: Optional["ButtonPanel"] = item.widget()
             if widget is not None:
-                loader_thread: None | QThread = getattr(widget, 'thread', None)
+                loader_thread: None | QThread = getattr(widget, 'loader_thread', None)
                 if loader_thread and hasattr(loader_thread, 'isRunning'):
                     try:
                         if loader_thread.isRunning():
