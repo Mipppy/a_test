@@ -90,7 +90,7 @@ class ClickableIcon(QFrame):
                 border: 2px solid green; 
                 background-color:  #31a207;
                 border-radius: 5px;
-                color:rgba(200, 200, 200, 200);""")
+                color:rgba(200, 200, 200, 255);""")
         else:
             self.setStyleSheet("""
                 border: 1px solid rgba(200, 200, 200, 255);

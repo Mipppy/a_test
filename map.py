@@ -186,3 +186,13 @@ if __name__ == "__main__":
     window = MainWindow()
     window.show()
     sys.exit(app.exec_())
+
+
+# Lives in the background
+# Once app is open, check repeatedly for the loading screen.
+# Once loading screen detected, then wait for M keypress.
+# Once M is pressed, quickly scan the map and move the invisible map to that location.  
+# Keep track of whether the map is open or closed. First M press -> open, second -> closed, etc
+# When the player moves the in game map, move the invisible map accordingly.
+# When player pushes keybind (default will be `/~), it opens the interactive map menu and allows them to select objects to mark, which do get rendered, but since the background is transparent, it gives it impression that it is overlaid upon the in-game map.
+# Eventually, add support for boss bar % markings, and player health indicators.

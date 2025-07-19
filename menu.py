@@ -245,7 +245,7 @@ class ButtonPanel(QWidget):
     def clear_comment_cards(cls):
         if cls.instance is None:
             raise RuntimeError("ButtonPanel instance is not initialized.")
-
+        cls.instance.web_scroll.verticalScrollBar().setValue(0)
         layout = cls.instance.web_layout_inside
         while layout.count():
             item = layout.takeAt(0)
