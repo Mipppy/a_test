@@ -119,7 +119,7 @@ class ButtonPanel(QWidget):
 
         self.settings_view = QWidget()
         self.settings_view.setObjectName('SettingsView')
-        settings_layout = QVBoxLayout(self.settings_view)
+        settings_layout = QHBoxLayout(self.settings_view)
         
         for setting_widget in SettingsManager.generate_ui():
             settings_layout.addWidget(setting_widget)

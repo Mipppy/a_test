@@ -161,7 +161,7 @@ class MainWindow(QMainWindow):
         loading_window.update_text("Loading buttons...", random.randrange(86, 99), 100)
         self.btn = ButtonPanel(self)
         self.btn.setParent(self)  
-        self.btn.setFixedSize(int(self.width() * 0.25), int(self.height() - 25))
+        self.btn.setFixedSize(int(self.width() * 0.35), int(self.height() - 25))
         self.btn.move(0, 0)  
         self.btn.hide()
 
