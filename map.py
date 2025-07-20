@@ -5,6 +5,8 @@ import random
 from PyQt5.QtCore import Qt, QRectF, QTimer, QPointF
 from PyQt5.QtGui import QPixmap, QPainter, QBrush, QPen, QImage, QColor, QKeySequence, QWheelEvent, QResizeEvent
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsPixmapItem, QGraphicsEllipseItem, QShortcut, QProxyStyle
+import asyncio
+from qasync import QEventLoop
 
 from helpers import original_pos_to_pyqt5, gimmie_data, generate_id_to_oid_mapping, delete_single_color_or_transparent_images
 from grouping import BasicGrouping
@@ -15,6 +17,7 @@ from loaded_data import LoadedData
 from updater import Updater
 from loading_window import LoadingWindow
 from settings import SettingsManager
+from async_requests import AsyncRequests
 
 class MapViewer(QGraphicsView):
 
@@ -107,15 +110,24 @@ class MapViewer(QGraphicsView):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        
+        self.setWindowTitle("Universal Resonance Stone")
+
         loading_window = LoadingWindow(self)
         loading_window.show()
         
-        loading_window.update_text('Checking for updates...', random.randrange(0,10), 100)
-        Updater.check_for_updates()
         
-        loading_window.update_text("Loading settings...", random.randrange(11,16), 100)
+        loading_window.update_text("Loading settings...", random.randrange(0,5), 100)
         SettingsManager.init('application_data/settings.json')
+        
+        loading_window.update_text('Connecting...', random.randrange(6,10), 100)
+        AsyncRequests.init(self)
+        
+        if (SettingsManager.get_setting_value('auto_update')):
+            loading_window.update_text('Checking for updates...', random.randrange(11,16), 100)
+            Updater.check_for_updates()
+        
+        # Instant tooltips, not presently used, but definitely worth having. 
+        # PyQt5's builtin tooltip speed is an incredibly slow 700ms.
         class InstantTooltip(QProxyStyle):
             def styleHint(self, hint, option=None, widget=None, returnData=None):
                 from PyQt5.QtWidgets import QStyle
@@ -128,7 +140,6 @@ class MainWindow(QMainWindow):
         LoadedData.init()
         
         loading_window.update_text('Creating window...', random.randrange(41, 50),100)
-        self.setWindowTitle("Map Viewer")
         screen_geo = QApplication.primaryScreen().availableGeometry()
         self.setGeometry(screen_geo)
         
@@ -174,9 +185,6 @@ class MainWindow(QMainWindow):
         loading_window.deleteLater()
         loading_window = None
         self.setCentralWidget(container)
-        self.setStyleSheet("""
-                           
-        """)
 
     def toggle_panel(self):
         self.btn.setVisible(not self.btn.isVisible())
@@ -192,11 +200,17 @@ class MainWindow(QMainWindow):
             _instance.overlay.move(x, y)
 
 
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    loop = QEventLoop(app)
+    asyncio.set_event_loop(loop)
+
     window = MainWindow()
     window.show()
-    sys.exit(app.exec_())
+
+    with loop:
+        loop.run_forever()
 
 
 # Lives in the background

@@ -1,11 +1,12 @@
 import json
 import os
+import re
 from typing import Any, Dict, List, Union
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QWidget, QCheckBox, QSpinBox, QDoubleSpinBox, QSlider, QPushButton,
-    QHBoxLayout, QLabel, QColorDialog, QSizePolicy, QVBoxLayout
+    QHBoxLayout, QLabel, QColorDialog, QSizePolicy, QVBoxLayout, QFrame
 )
 from PyQt5.QtGui import QColor, QFont, QCursor
 
@@ -48,48 +49,36 @@ class SettingsManager:
         for key, meta in cls.settings_data.items():
             wrapper = QWidget()
             wrapper_layout = QVBoxLayout()
-            wrapper_layout.setSpacing(2)              
-            wrapper_layout.setContentsMargins(2, 2, 2, 2) 
-
-            top_row = QWidget()
-            top_layout = QHBoxLayout()
-            top_layout.setContentsMargins(0, 0, 0, 0)
-            top_layout.setSpacing(6)
+            wrapper_layout.setSpacing(4)
+            wrapper_layout.setContentsMargins(4, 4, 4, 4)
 
             label = QLabel(meta.get("name", key))
-            label_font = QFont("Arial", 10, QFont.Bold)
-            label.setFont(label_font)
-            label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+            label.setFont(QFont("Arial", 11, QFont.Bold))
+            label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+            wrapper_layout.addWidget(label)
 
-            tooltip_btn = QPushButton("?")
-            tooltip_btn.setFixedSize(18, 18)
-            tooltip_btn.setFont(QFont("Arial", 9, QFont.Bold))
-            tooltip_btn.setStyleSheet(
-                "QPushButton {"
-                " border: none;"
-                " background-color: #ccc;"
-                " border-radius: 9px;"
-                " color: black;"
-                "}"
-                "QPushButton::hover { background-color: #aaa; }"
-            )
-            tooltip_btn.setToolTip(meta.get("description", ""))
-            tooltip_btn.setCursor(QCursor(Qt.PointingHandCursor))
+            description = QLabel(meta.get("description", ""))
+            description.setWordWrap(True)
+            description.setFont(QFont("Arial", 9))
+            description.setStyleSheet("color: gray;")
+            description.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+            wrapper_layout.addWidget(description)
 
             control = cls._create_control(key, meta)
-            control.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+            control.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+            wrapper_layout.addWidget(control)
 
-            top_layout.addWidget(label)
-            top_layout.addWidget(tooltip_btn)
-            top_layout.addWidget(control)
-            top_row.setLayout(top_layout)
+            line = QFrame()
+            line.setFrameShape(QFrame.HLine)
+            line.setFrameShadow(QFrame.Sunken)
+            line.setStyleSheet("color: #aaa;")
+            wrapper_layout.addWidget(line)
 
-            wrapper_layout.addWidget(top_row)
             wrapper.setLayout(wrapper_layout)
-
             widgets.append(wrapper)
-        return widgets
 
+        return widgets
+    
     @classmethod
     def _create_control(cls, key: str, meta: Dict[str, Any]) -> Union[QWidget, None]:
         value = meta.get("value", meta.get("default"))
@@ -101,7 +90,7 @@ class SettingsManager:
         if setting_type == "bool":
             checkbox = QCheckBox()
             checkbox.setChecked(bool(value))
-            checkbox.stateChanged.connect(lambda state, key=key: on_change(state == Qt.Checked, key))
+            checkbox.stateChanged.connect(lambda state, key=key: on_change(state == Qt.CheckState.Checked, key))
             return checkbox
 
         elif setting_type == "int":
@@ -111,16 +100,18 @@ class SettingsManager:
             spinbox.setMaximum(meta.get("max", 100))
             spinbox.setSingleStep(meta.get("step", 1))
             spinbox.valueChanged.connect(lambda val, key=key: on_change(val, key))
+            spinbox.setStyleSheet("color: black;")
             return spinbox
 
         elif setting_type == "float":
             dsp = QDoubleSpinBox()
             dsp.setValue(float(value))
-            dsp.setMinimum(meta.get("min", 0.0))
+            dsp.setMinimum(meta.get("mins", 0.0))
             dsp.setMaximum(meta.get("max", 1000.0))
             dsp.setSingleStep(meta.get("step", 0.1))
             dsp.setDecimals(meta.get("decimals", 3))
             dsp.valueChanged.connect(lambda val, key=key: on_change(val, key))
+            dsp.setStyleSheet("color: black;")
             return dsp
 
         elif setting_type == "slider":
@@ -129,23 +120,48 @@ class SettingsManager:
             slider.setMaximum(meta.get("max", 100))
             slider.setValue(int(value))
             slider.valueChanged.connect(lambda val, key=key: on_change(val, key))
+            slider.setStyleSheet("""
+                QSlider::handle:horizontal {
+                    background: black;
+                }
+                QSlider::groove:horizontal {
+                    background: lightgray;
+                }
+            """)
             return slider
+
 
         elif setting_type == "color":
             btn = QPushButton()
-            btn.setText(value)
-            btn.setStyleSheet(f"background-color: {value};")
+            btn.setFixedSize(100, 24)
+            btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+
+            color_val = value if isinstance(value, str) else meta.get("default", "rgba(255,255,255,255)")
+            btn.setStyleSheet(f"background-color: {color_val}; border: 1px solid #888;")
+            btn.setText("") 
+
             btn.clicked.connect(lambda _, b=btn, k=key: cls._open_color_dialog(b, k))
             return btn
 
-        return QLabel("Unsupported")
+        return QLabel(f"Invalid setting: {key}?")
 
     @classmethod
     def _open_color_dialog(cls, button: QPushButton, key: str):
-        current_color = button.text()
-        col = QColorDialog.getColor(QColor(current_color), button, f"Select color for {key}")
+
+        style = button.styleSheet()
+        match = re.search(r'rgba\((\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)', style)
+        if match:
+            r, g, b, a = map(int, match.groups())
+            initial_color = QColor(r, g, b, a)
+        else:
+            initial_color = QColor(255, 255, 255, 255)
+
+        col = QColorDialog.getColor(initial_color, None, "Select Color", QColorDialog.ColorDialogOption.ShowAlphaChannel)
         if col.isValid():
             rgba_str = f"rgba({col.red()}, {col.green()}, {col.blue()}, {col.alpha()})"
-            button.setText(rgba_str)
-            button.setStyleSheet(f"background-color: {rgba_str};")
+            button.setStyleSheet(f"background-color: {rgba_str}; border: 1px solid #888;")
             cls.update_setting(key, rgba_str)
+    
+    @classmethod
+    def get_setting_value(cls, key:str):
+        return cls.settings_data.get(key).get('value')

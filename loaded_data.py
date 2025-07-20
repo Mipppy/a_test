@@ -23,6 +23,7 @@ class LoadedData:
 
     map_pixmaps: dict[tuple[int, int], QPixmap] = {}
     btn_pixmaps: dict[int, QPixmap] = {}
+
     
     @classmethod
     def init(cls):

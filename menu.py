@@ -26,21 +26,6 @@ class ButtonPanel(QWidget):
         self.setWindowTitle("Control Panel")
         self.setSizePolicy(QSizePolicy.Policy.Preferred,
                            QSizePolicy.Policy.Expanding)
-        # self.setStyleSheet("""
-        #     QWidget {
-        #         background-color: rgba(40, 40, 40, 180);  /* semi-transparent dark grey */
-        #         color: rgba(255, 255, 255, 200);          /* soft white text */
-        #     }
-        #     QLabel, QPushButton, QToolButton {
-        #         color: rgba(255, 255, 255, 200);          /* enforce for child widgets */
-        #     }
-        #     QScrollArea {
-        #         background-color: transparent;           /* no extra background */
-        #     }
-        #     QScrollBar:horizontal {
-        #         height: 0px;                              /* hide horizontal scrollbar */
-        #     }
-        # """)
 
         self.main_layout = QVBoxLayout(self)
 
@@ -55,7 +40,7 @@ class ButtonPanel(QWidget):
         buttons_info = [
             ("Location Data", "images/resources/official/3.jpg"),
             ("Web", "images/resources/official/52.jpg"),
-            ("Settings", "images/resources/official/558.jpg`"),
+            ("Settings", "images/resources/official/15.jpg`"),
         ]
 
         for name, icon_path in buttons_info:
@@ -119,10 +104,13 @@ class ButtonPanel(QWidget):
 
         self.settings_view = QWidget()
         self.settings_view.setObjectName('SettingsView')
-        settings_layout = QHBoxLayout(self.settings_view)
-        
+        settings_layout = QVBoxLayout(self.settings_view)
+        settings_layout.setSpacing(2)
+        settings_layout.setContentsMargins(2, 2, 2, 2)
+        self.settings_view.setMinimumHeight(self.height())
         for setting_widget in SettingsManager.generate_ui():
             settings_layout.addWidget(setting_widget)
+        settings_layout.addStretch()
 
         self.views["Settings"] = self.settings_view
 

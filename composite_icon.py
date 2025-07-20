@@ -6,10 +6,11 @@ from PyQt5.QtWidgets import (
     QGraphicsSceneMouseEvent
 )
 from collections import OrderedDict
+import asyncio
 
 from helpers import reverse_linear_mapping, circular_crop_pixmap
 from loaded_data import LoadedData
-from webhandler import WebHandler
+from webhandler import UnofficialDataLoader
 from menu import ButtonPanel
 class CompositeIcon(QGraphicsItemGroup):
     _global_z_counter = 1
@@ -93,7 +94,7 @@ class CompositeIcon(QGraphicsItemGroup):
     def mousePressEvent(self, event:QGraphicsSceneMouseEvent):
         self.setSelected(True)
         ButtonPanel.clear_comment_cards()
-        WebHandler.load_unofficial_data(self.item_data['id'], self.item_data['label_id'])
+        asyncio.create_task(UnofficialDataLoader.load_unofficial_data(self.item_data['id'], self.item_data['label_id']))
         CompositeIcon.raise_to_top(self)
         super().mousePressEvent(event)
 

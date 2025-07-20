@@ -3,9 +3,15 @@
         "name": "Save Selections",
         "default": true,
         "value": true,
-        "menu_option": "checkbox",
         "data_type": "bool",
         "description": "Saves what objects are selected between app loads."
+    },
+    "auto_update": {
+        "name": "Auto update",
+        "default": true,
+        "value": true,
+        "data_type": "bool",
+        "description": "Opts out of automatic updates.  You can manually update at any time."
     },
     "grouping_threshold": {
         "name": "Grouping Threshold",
@@ -13,23 +19,20 @@
         "value": 30.500000000000007,
         "min": 1.0,
         "max": 1000.0,
-        "menu_option": "text",
         "data_type": "float",
         "description": "The distance in which two objects will be classified as groups."
     },
     "text_color": {
         "name": "Text Color",
         "default": "rgba(200, 200, 200, 255)",
-        "value": "rgba(200, 200, 200, 255)",
-        "menu_option": "color",
+        "value": "rgba(85, 255, 127, 255)",
         "data_type": "color",
         "description": "The color text will use in the user interface."
     },
     "background_color": {
         "name": "Background Color",
         "default": "rgba(60, 60, 60, 255)",
-        "value": "rgba(60, 60, 60, 255)",
-        "menu_option": "color",
+        "value": "rgba(255, 170, 255, 255)",
         "data_type": "color",
         "description": "The color the background will use in the user interface."
     }

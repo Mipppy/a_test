@@ -7,7 +7,6 @@ from PyQt5.QtWidgets import (
 import os
 import json
 from typing import Dict, List, Union, Optional, Any, cast
-import requests
 from functools import lru_cache
 
 from loaded_data import LoadedData
@@ -220,19 +219,6 @@ def map_all_ids_by_xpos(
     return full_mapping
 
 
-def get_icon_from_url(url) -> QIcon:
-    try:
-        resp = requests.get(url)
-        resp.raise_for_status()
-        data = resp.content
-        pixmap = QPixmap()
-        pixmap.loadFromData(data)
-        return QIcon(pixmap)
-    except Exception as e:
-        print(f"Failed to load icon from URL {url}: {e}")
-        return None
-
-
 def get_coordinates_from_filename(filename: str):
     try:
         base_name: str = os.path.splitext(filename)[0]
@@ -241,22 +227,6 @@ def get_coordinates_from_filename(filename: str):
             x, y = int(parts[0]), int(parts[1])
             return x, y
     except ValueError:
-        return None
-
-
-def get_pixmap_from_url(url: str) -> QPixmap | None:
-    try:
-        if not url:
-            return None
-        response = requests.get(url)
-        response.raise_for_status()
-        image_data = response.content
-        pixmap = QPixmap()
-        if pixmap.loadFromData(image_data):
-            return pixmap
-        else:
-            return None
-    except Exception as e:
         return None
 
 def delete_single_color_or_transparent_images(directory="images/map/official/high_res", target_hex="#111820"):
