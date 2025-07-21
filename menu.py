@@ -247,11 +247,10 @@ class ButtonPanel(QWidget):
         self.content_scroll_area.verticalScrollBar().setValue(section.y())
 
     @classmethod
-    def add_comment_card(cls, image_path: str, comment: str, username: str, date: str, like_count: int = 0):
+    def add_comment_card(cls, image_path: str, comment: str, username: str, date: str, auid: str, docid: str, oid: str, like_count: int = 0):
         if cls.instance is None:
             raise RuntimeError("ButtonPanel instance is not initialized.")
-
-        card = CommentCard(image_path, comment, username, date, like_count)
+        card = CommentCard(image_path, comment, username, date, auid, docid, oid, like_count)
         cls.instance.web_layout_inside.addWidget(card)
 
     @classmethod

@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QProgressBar, QApplica
 class LoadingWindow(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("Loading...")
+        self.setWindowTitle("Loading Univeral Resonance Stone...")
         self.setModal(False) 
         self.setFixedSize(300, 120)
         layout = QVBoxLayout()

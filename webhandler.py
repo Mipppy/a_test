@@ -14,7 +14,6 @@ class UnofficialDataLoader:
         if not oid or not uid:
             print(f"Invalid OID or UID for label_id={label_id}, _id={_id}")
             return
-        print(oid)
         url = "https://cache-v2.lemonapi.com/comments/v2"
         params = {
             "app": "gim",
@@ -46,6 +45,7 @@ class UnofficialDataLoader:
         for comment in comments:
             username = comment.get("aname", "Anonymous")
             text = comment.get("content", "")
+            auid = comment.get("auid", "")
             time_raw = comment.get("time", "")
             votes = comment.get("vote", 0)
             image = comment.get("image", "")
@@ -57,4 +57,4 @@ class UnofficialDataLoader:
                 date = "Unknown"
 
             image_path = cls.image_loading_url.rstrip('/') + image if image else None
-            ButtonPanel.add_comment_card(image_path, text, username, date, like_count=votes)
+            ButtonPanel.add_comment_card(image_path, text, username, date, auid, uid, oid, votes)

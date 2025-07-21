@@ -17,7 +17,11 @@ class LoadedData:
 
     qicon_paths: List[str] = [
         'images/resources/application/thumbs_up_dark.png',
-        'images/resources/application/thumbs_down_dark.png'
+        'images/resources/application/thumbs_up_light.png',
+        'images/resources/application/thumbs_up_selected.png',
+        'images/resources/application/thumbs_down_dark.png',
+        'images/resources/application/thumbs_down_light.png',
+        'images/resources/application/thumbs_down_selected.png',
     ]
     qicon_cache: Dict[str, QIcon] = {}
 
